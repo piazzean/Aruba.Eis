@@ -1,0 +1,16 @@
+﻿@model Aruba.Eis.Models.Bl.ActivityResource
+@using HtmlHelpers.BeginCollectionItem
+
+<tr>
+@using (Html.BeginCollectionItem("Resources"))
+{
+    <td>@Html.DisplayFor(m => m.Id)</td>
+    <td>@Html.TextBoxFor(m => m.Role)</td>
+    <td>@Html.TextBoxFor(m => m.MinOccurs)</td>
+    <td>@Html.TextBoxFor(m => m.MaxOccors)</td>
+    <td>
+        <button type="button" class="delete" data-id="@Model.Id">Delete</button>
+        @Html.HiddenFor(m => m.Id)
+    </td>
+}
+</tr>

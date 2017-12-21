@@ -1,0 +1,22 @@
+2017-12-07 09:52:05,881 [1] ERROR Aruba.Eis.Context.BeanFactory - The configuration is invalid. Creating the instance for type RoleController failed. The constructor of type RoleController contains the parameter with name 'userService' and type IUserService that is not registered. Please ensure IUserService is registered, or change the constructor of RoleController.
+System.InvalidOperationException: The configuration is invalid. Creating the instance for type RoleController failed. The constructor of type RoleController contains the parameter with name 'userService' and type IUserService that is not registered. Please ensure IUserService is registered, or change the constructor of RoleController. ---> SimpleInjector.ActivationException: The constructor of type RoleController contains the parameter with name 'userService' and type IUserService that is not registered. Please ensure IUserService is registered, or change the constructor of RoleController.
+   in SimpleInjector.Container.ThrowParameterTypeMustBeRegistered(InjectionTargetInfo target)
+   in SimpleInjector.Advanced.DefaultDependencyInjectionBehavior.GetInstanceProducer(InjectionConsumerInfo consumer, Boolean throwOnFailure)
+   in SimpleInjector.ContainerOptions.GetInstanceProducerFor(InjectionConsumerInfo consumer)
+   in SimpleInjector.Registration.BuildConstructorParameters(ConstructorInfo constructor)
+   in SimpleInjector.Registration.BuildNewExpression()
+   in SimpleInjector.Registration.BuildTransientExpression()
+   in SimpleInjector.Lifestyles.TransientLifestyle.TransientLifestyleRegistration`1.BuildExpression()
+   in SimpleInjector.InstanceProducer.BuildExpressionInternal()
+   in System.Lazy`1.CreateValue()
+   in System.Lazy`1.LazyInitValue()
+   in System.Lazy`1.get_Value()
+   in SimpleInjector.InstanceProducer.BuildExpression()
+   in SimpleInjector.InstanceProducer.VerifyExpressionBuilding()
+   --- Fine della traccia dello stack dell'eccezione interna ---
+   in SimpleInjector.InstanceProducer.VerifyExpressionBuilding()
+   in SimpleInjector.Container.VerifyThatAllExpressionsCanBeBuilt(InstanceProducer[] producersToVerify)
+   in SimpleInjector.Container.VerifyThatAllExpressionsCanBeBuilt()
+   in SimpleInjector.Container.VerifyInternal(Boolean suppressLifestyleMismatchVerification)
+   in SimpleInjector.Container.Verify()
+   in Aruba.Eis.Context.BeanFactory.Initialize(IAppBuilder app) in C:\Sviluppo\EIS\Aruba.Eis\Aruba.Eis\Context\BeanFactory.cs:riga 88

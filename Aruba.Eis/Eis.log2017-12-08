@@ -1,0 +1,42 @@
+2017-12-08 08:01:56,072 [16] ERROR Aruba.Eis.Dao.BaseDao - Internal Repository Error
+System.InvalidOperationException: The operation failed: The relationship could not be changed because one or more of the foreign-key properties is non-nullable. When a change is made to a relationship, the related foreign-key property is set to a null value. If the foreign-key does not support null values, a new relationship must be defined, the foreign-key property must be assigned another non-null value, or the unrelated object must be deleted.
+   in System.Data.Entity.Core.Objects.ObjectContext.PrepareToSaveChanges(SaveOptions options)
+   in System.Data.Entity.Core.Objects.ObjectContext.<SaveChangesInternalAsync>d__31.MoveNext()
+--- Fine traccia dello stack da posizione precedente dove è stata generata l'eccezione ---
+   in System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   in System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   in System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   in Aruba.Eis.EntityFramework.ApplicationDbContext.<SaveChangesAsync>d__14.MoveNext() in C:\Sviluppo\EIS\Aruba.Eis\Aruba.Eis\EntityFramework\ApplicationDbContext.cs:riga 89
+--- Fine traccia dello stack da posizione precedente dove è stata generata l'eccezione ---
+   in System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   in System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   in System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   in Aruba.Eis.Dao.BaseDao.<SaveChanges>d__4.MoveNext() in C:\Sviluppo\EIS\Aruba.Eis\Aruba.Eis\Dao\BaseDao.cs:riga 45
+2017-12-08 08:03:22,971 [17] ERROR Aruba.Eis.Dao.BaseDao - Internal Repository Error
+System.InvalidOperationException: The operation failed: The relationship could not be changed because one or more of the foreign-key properties is non-nullable. When a change is made to a relationship, the related foreign-key property is set to a null value. If the foreign-key does not support null values, a new relationship must be defined, the foreign-key property must be assigned another non-null value, or the unrelated object must be deleted.
+   in System.Data.Entity.Core.Objects.ObjectContext.PrepareToSaveChanges(SaveOptions options)
+   in System.Data.Entity.Core.Objects.ObjectContext.<SaveChangesInternalAsync>d__31.MoveNext()
+--- Fine traccia dello stack da posizione precedente dove è stata generata l'eccezione ---
+   in System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   in System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   in System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   in Aruba.Eis.EntityFramework.ApplicationDbContext.<SaveChangesAsync>d__14.MoveNext() in C:\Sviluppo\EIS\Aruba.Eis\Aruba.Eis\EntityFramework\ApplicationDbContext.cs:riga 89
+--- Fine traccia dello stack da posizione precedente dove è stata generata l'eccezione ---
+   in System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   in System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   in System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   in Aruba.Eis.Dao.BaseDao.<SaveChanges>d__4.MoveNext() in C:\Sviluppo\EIS\Aruba.Eis\Aruba.Eis\Dao\BaseDao.cs:riga 45
+2017-12-08 08:03:48,107 [16] ERROR Aruba.Eis.Dao.BaseDao - Internal Repository Error
+System.InvalidOperationException: The operation failed: The relationship could not be changed because one or more of the foreign-key properties is non-nullable. When a change is made to a relationship, the related foreign-key property is set to a null value. If the foreign-key does not support null values, a new relationship must be defined, the foreign-key property must be assigned another non-null value, or the unrelated object must be deleted.
+   in System.Data.Entity.Core.Objects.ObjectContext.PrepareToSaveChanges(SaveOptions options)
+   in System.Data.Entity.Core.Objects.ObjectContext.<SaveChangesInternalAsync>d__31.MoveNext()
+--- Fine traccia dello stack da posizione precedente dove è stata generata l'eccezione ---
+   in System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   in System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   in System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   in Aruba.Eis.EntityFramework.ApplicationDbContext.<SaveChangesAsync>d__14.MoveNext() in C:\Sviluppo\EIS\Aruba.Eis\Aruba.Eis\EntityFramework\ApplicationDbContext.cs:riga 89
+--- Fine traccia dello stack da posizione precedente dove è stata generata l'eccezione ---
+   in System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   in System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   in System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   in Aruba.Eis.Dao.BaseDao.<SaveChanges>d__4.MoveNext() in C:\Sviluppo\EIS\Aruba.Eis\Aruba.Eis\Dao\BaseDao.cs:riga 45

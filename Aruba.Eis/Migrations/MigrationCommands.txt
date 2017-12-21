@@ -1,0 +1,5 @@
+﻿Enable-Migrations -ContextTypeName Aruba.Eis.EntityFramework.ApplicationDbContext -ConnectionStringName DefaultConnection
+
+Add-Migration -ConfigurationTypeName Aruba.Eis.Migrations.Configuration Version1.0.0r1 -ConnectionStringName DefaultConnection
+
+Update-Database -Verbose -ConfigurationTypeName Aruba.Eis.Migrations.Configuration -ConnectionStringName DefaultConnection

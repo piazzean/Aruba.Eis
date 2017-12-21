@@ -1,0 +1,41 @@
+﻿@model Aruba.Eis.Models.Bl.Role
+@using Aruba.Eis
+@{
+    ViewBag.Title = I18nResource.DELETE_ROLE;
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+    
+        <dd>
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+    
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+    
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+    
+    </dl>
+    
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <h3>@I18nResource.CONFIRM_DELETE</h3>
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-warning" />
+            @Html.ActionLink(I18nResource.CANCEL, "Index", null, new { @class = "btn btn-default" })
+        </div>
+    }
+</div>
+
