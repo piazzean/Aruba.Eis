@@ -6,8 +6,14 @@
 {
     <td>@Html.DisplayFor(m => m.Id)</td>
     <td>@Html.TextBoxFor(m => m.Role)</td>
-    <td>@Html.TextBoxFor(m => m.MinOccurs)</td>
-    <td>@Html.TextBoxFor(m => m.MaxOccors)</td>
+    <td>
+        <span id="minoccurs" class="read">@Model.MinOccurs</span>
+        @Html.TextBox("MinOccurs", 1, new {@class = "edit"})
+    </td>
+    <td>
+        <span id="maxoccors" class="read">@Model.MaxOccors</span>
+        @Html.TextBox("MaxOccors", 1, new {@class = "edit"})
+    </td>
     <td>
         <button type="button" class="delete" data-id="@Model.Id">Delete</button>
         @Html.HiddenFor(m => m.Id)
