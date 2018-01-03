@@ -13,6 +13,7 @@ using Aruba.Eis.Models.Views;
 using log4net;
 using Aruba.Eis.Services;
 using Aruba.Eis.Models.Bl;
+using Aruba.Eis.Helpers;
 
 namespace Aruba.Eis.Controllers
 {
@@ -107,6 +108,7 @@ namespace Aruba.Eis.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            await HtmlItems.LoadRoleListItems();
             var activity = await ActivityService.Find(id);
             if (activity == null)
             {
@@ -169,7 +171,6 @@ namespace Aruba.Eis.Controllers
         public PartialViewResult AddResource()
         {
             var model = new ActivityResource();
-            model.Role = new Role();
             return PartialView("_Resources", model);
         }
     }

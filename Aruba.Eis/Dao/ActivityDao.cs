@@ -98,5 +98,25 @@ namespace Aruba.Eis.Dao
                 throw EisException.RepositoryError;
             }
         }
+
+        /// <summary>
+        /// Remove activityresource
+        /// </summary>
+        /// <param name="ae"></param>
+        /// <returns></returns>
+        public async Task RemoveResource(ActivityResourceEntity ae)
+        {
+            try
+            {
+                _ctx.DbActivityResources.Remove(ae);
+                await _ctx.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                Log.Error(EisException.RepositoryError.Message, e);
+                throw EisException.RepositoryError;
+            }
+        }
+
     }
 }

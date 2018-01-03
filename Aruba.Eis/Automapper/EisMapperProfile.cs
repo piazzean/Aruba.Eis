@@ -20,6 +20,9 @@ namespace Aruba.Eis.Automapper
             CreateMap<IdentityRole, Role>();
             CreateMap<Role, IdentityRole>();
 
+            CreateMap<ActivityResourceEntity, ActivityResource>();
+            CreateMap<ActivityResource, ActivityResourceEntity>();
+
         }
     }
 }

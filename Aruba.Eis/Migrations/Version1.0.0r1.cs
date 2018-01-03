@@ -27,7 +27,7 @@ namespace Aruba.Eis.Migrations
                     {
                         Id = c.Int(nullable: false, identity: true),
                         ActivityId = c.Int(nullable: false),
-                        RoleId = c.String(maxLength: 128),
+                        RoleId = c.String(),
                         MinOccurs = c.Int(nullable: false),
                         MaxOccurs = c.Int(nullable: false),
                         DateCreated = c.DateTime(),
@@ -36,33 +36,8 @@ namespace Aruba.Eis.Migrations
                         UserModified = c.String(maxLength: 50),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Activities", t => t.ActivityId, cascadeDelete: true)
-                .ForeignKey("dbo.AspNetRoles", t => t.RoleId)
-                .Index(t => t.ActivityId)
-                .Index(t => t.RoleId);
-            
-            CreateTable(
-                "dbo.AspNetRoles",
-                c => new
-                    {
-                        Id = c.String(nullable: false, maxLength: 128),
-                        Name = c.String(nullable: false, maxLength: 256),
-                    })
-                .PrimaryKey(t => t.Id)
-                .Index(t => t.Name, unique: true, name: "RoleNameIndex");
-            
-            CreateTable(
-                "dbo.AspNetUserRoles",
-                c => new
-                    {
-                        UserId = c.String(nullable: false, maxLength: 128),
-                        RoleId = c.String(nullable: false, maxLength: 128),
-                    })
-                .PrimaryKey(t => new { t.UserId, t.RoleId })
-                .ForeignKey("dbo.AspNetRoles", t => t.RoleId, cascadeDelete: true)
-                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
-                .Index(t => t.UserId)
-                .Index(t => t.RoleId);
+                .ForeignKey("dbo.Activities", t => t.ActivityId)
+                .Index(t => t.ActivityId);
             
             CreateTable(
                 "dbo.Teams",
@@ -143,6 +118,29 @@ namespace Aruba.Eis.Migrations
                 .Index(t => t.UserId);
             
             CreateTable(
+                "dbo.AspNetUserRoles",
+                c => new
+                    {
+                        UserId = c.String(nullable: false, maxLength: 128),
+                        RoleId = c.String(nullable: false, maxLength: 128),
+                    })
+                .PrimaryKey(t => new { t.UserId, t.RoleId })
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
+                .ForeignKey("dbo.AspNetRoles", t => t.RoleId, cascadeDelete: true)
+                .Index(t => t.UserId)
+                .Index(t => t.RoleId);
+            
+            CreateTable(
+                "dbo.AspNetRoles",
+                c => new
+                    {
+                        Id = c.String(nullable: false, maxLength: 128),
+                        Name = c.String(nullable: false, maxLength: 256),
+                    })
+                .PrimaryKey(t => t.Id)
+                .Index(t => t.Name, unique: true, name: "RoleNameIndex");
+            
+            CreateTable(
                 "dbo.ScheduleResources",
                 c => new
                     {
@@ -208,39 +206,37 @@ namespace Aruba.Eis.Migrations
             DropForeignKey("dbo.Assignements", "ScheduleId", "dbo.Schedules");
             DropForeignKey("dbo.Assignements", "RoleId", "dbo.AspNetRoles");
             DropForeignKey("dbo.ScheduleResources", "RoleId", "dbo.AspNetRoles");
+            DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
             DropForeignKey("dbo.TeamResources", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.TeamResources", "TeamId", "dbo.Teams");
-            DropForeignKey("dbo.ActivityResources", "RoleId", "dbo.AspNetRoles");
-            DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
             DropForeignKey("dbo.ActivityResources", "ActivityId", "dbo.Activities");
             DropIndex("dbo.Assignements", new[] { "RoleId" });
             DropIndex("dbo.Assignements", new[] { "UserId" });
             DropIndex("dbo.Assignements", new[] { "ScheduleId" });
             DropIndex("dbo.ScheduleResources", new[] { "RoleId" });
             DropIndex("dbo.ScheduleResources", new[] { "ScheduleId" });
+            DropIndex("dbo.AspNetRoles", "RoleNameIndex");
+            DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
+            DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
             DropIndex("dbo.TeamResources", new[] { "UserId" });
             DropIndex("dbo.TeamResources", new[] { "TeamId" });
-            DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
-            DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
-            DropIndex("dbo.AspNetRoles", "RoleNameIndex");
-            DropIndex("dbo.ActivityResources", new[] { "RoleId" });
             DropIndex("dbo.ActivityResources", new[] { "ActivityId" });
             DropTable("dbo.Assignements");
             DropTable("dbo.Schedules");
             DropTable("dbo.ScheduleResources");
+            DropTable("dbo.AspNetRoles");
+            DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
             DropTable("dbo.TeamResources");
             DropTable("dbo.Teams");
-            DropTable("dbo.AspNetUserRoles");
-            DropTable("dbo.AspNetRoles");
             DropTable("dbo.ActivityResources");
             DropTable("dbo.Activities");
         }

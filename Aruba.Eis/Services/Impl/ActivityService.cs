@@ -73,31 +73,32 @@ namespace Aruba.Eis.Services.Impl
                 if (ae != null)
                 {
                     Mapper.Map<Activity, ActivityEntity>(activity, ae);
-                    // Update/Delete existing Resources
-                    foreach (var res in ae.Resources.ToArray())
+                    if (activity.Resources != null)
                     {
-                        var newres = activity.Resources.Where(r => r.Id == res.Id).FirstOrDefault();
-                        if (newres != null)
+                        // Update/Delete existing Resources
+                        foreach (var res in ae.Resources.ToList())
                         {
-                            res.MinOccurs = newres.MinOccurs;
-                            res.MaxOccurs = newres.MaxOccurs;
+                            var newres = activity.Resources.FirstOrDefault(r => r.Id == res.Id);
+                            if (newres != null)
+                            {
+                                Mapper.Map(newres, res);
+                            }
+                            else
+                            {
+                                await dao.RemoveResource(res);
+                            }
                         }
-                        else
+                        // Add new Resources
+                        foreach (var newres in activity.Resources)
                         {
-                            ae.Resources.Remove(res);
+                            if (newres.Id == 0)
+                            {
+                                var res = new ActivityResourceEntity();
+                                Mapper.Map(newres, res);
+                                ae.Resources.Add(res);
+                            }
                         }
                     }
-                    // Add new Resources
-                    foreach (var newres in activity.Resources)
-                    {
-                        if (newres.Id == 0)
-                        {
-                            var res = new ActivityResourceEntity();
-                            res.MinOccurs = newres.MinOccurs;
-                            res.MaxOccurs = newres.MaxOccurs;
-                            ae.Resources.Add(res);
-                        }
-                    }                    
                     await dao.SaveChanges();
                     dao.CommitTransaction();
                 }

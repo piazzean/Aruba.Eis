@@ -37,6 +37,9 @@ namespace Aruba.Eis.EntityFramework
 
         public virtual DbSet<ActivityEntity> DbActivities { get; set; }
 
+        public virtual DbSet<ActivityResourceEntity> DbActivityResources { get; set; }
+
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -55,13 +58,12 @@ namespace Aruba.Eis.EntityFramework
                 .HasForeignKey<string>(tr => tr.UserId)
                 .WillCascadeOnDelete(false);
 
-            // Add Activity-ActivityResource One to many relationship
             modelBuilder.Entity<ActivityResourceEntity>()
                 .HasRequired<ActivityEntity>(ar => ar.Activity)
                 .WithMany(a => a.Resources)
                 .HasForeignKey<int>(ar => ar.ActivityId)
-                .WillCascadeOnDelete(true);
-
+                .WillCascadeOnDelete(false);
+            
             // Add Schedule-ScheduleResource One to many relationship
             modelBuilder.Entity<ScheduleResourceEntity>()
                 .HasRequired<ScheduleEntity>(sr => sr.Schedule)
