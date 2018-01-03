@@ -20,6 +20,6 @@ namespace Aruba.Eis.Models.Entities
 
         public int MinOccurs { get; set; }
 
-        public int MaxOccors { get; set; }
+        public int MaxOccurs { get; set; }
     }
 }

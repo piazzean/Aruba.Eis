@@ -5,6 +5,10 @@ VisualStudioVersion = 15.0.27004.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aruba.Eis", "Aruba.Eis\Aruba.Eis.csproj", "{1521F2C0-1369-4474-A9F3-78387CA20C05}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aruba.MvcToolkit", "Aruba.MvcToolkit\Aruba.MvcToolkit.csproj", "{9042B5DA-84D1-4F77-9A33-B15D054E8919}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aruba.Toolkit", "Aruba.Toolkit\Aruba.Toolkit.csproj", "{62C4ACA4-551D-4DA1-84B5-BDCD9C36FF2D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{1521F2C0-1369-4474-A9F3-78387CA20C05}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1521F2C0-1369-4474-A9F3-78387CA20C05}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1521F2C0-1369-4474-A9F3-78387CA20C05}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9042B5DA-84D1-4F77-9A33-B15D054E8919}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9042B5DA-84D1-4F77-9A33-B15D054E8919}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9042B5DA-84D1-4F77-9A33-B15D054E8919}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9042B5DA-84D1-4F77-9A33-B15D054E8919}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62C4ACA4-551D-4DA1-84B5-BDCD9C36FF2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62C4ACA4-551D-4DA1-84B5-BDCD9C36FF2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62C4ACA4-551D-4DA1-84B5-BDCD9C36FF2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62C4ACA4-551D-4DA1-84B5-BDCD9C36FF2D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

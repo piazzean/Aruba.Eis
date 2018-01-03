@@ -6,13 +6,16 @@
 {
     @Html.HiddenFor(m => m.Id)
     <td>
-        @Html.TextBoxFor(m => m.Role.Id, @Model.Role.Id, new {@class = "edit"})
+        @Html.TextBoxFor(m => m.Role.Id, @Model.Role.Id, new {@class = "form-control"})
+        @Html.ValidationMessageFor(model => model.Role.Id, "", new { @class = "text-danger" })
     </td>
     <td>
-        @Html.TextBox("MinOccurs", @Model.MinOccurs, new {@class = "edit"})
+        @Html.TextBox("MinOccurs", @Model.MinOccurs, new {@class = "form-control"})
+        @Html.ValidationMessageFor(model => model.MinOccurs, "", new { @class = "text-danger" })
     </td>
     <td>
-        @Html.TextBox("MaxOccors", @Model.MaxOccors, new {@class = "edit"})
+        @Html.TextBox("MaxOccors", @Model.MaxOccors, new {@class = "form-control"})
+        @Html.ValidationMessageFor(model => model.MaxOccors, "", new { @class = "text-danger" })
     </td>
     <td>
         <input type="button" value="Delete" class="btn btn-default"

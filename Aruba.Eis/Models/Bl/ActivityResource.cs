@@ -15,6 +15,6 @@ namespace Aruba.Eis.Models.Bl
 
         public int MinOccurs { get; set; }
 
-        public int MaxOccors { get; set; }
+        public int MaxOccurs { get; set; }
     }
 }

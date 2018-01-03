@@ -73,6 +73,31 @@ namespace Aruba.Eis.Services.Impl
                 if (ae != null)
                 {
                     Mapper.Map<Activity, ActivityEntity>(activity, ae);
+                    // Update/Delete existing Resources
+                    foreach (var res in ae.Resources.ToArray())
+                    {
+                        var newres = activity.Resources.Where(r => r.Id == res.Id).FirstOrDefault();
+                        if (newres != null)
+                        {
+                            res.MinOccurs = newres.MinOccurs;
+                            res.MaxOccurs = newres.MaxOccurs;
+                        }
+                        else
+                        {
+                            ae.Resources.Remove(res);
+                        }
+                    }
+                    // Add new Resources
+                    foreach (var newres in activity.Resources)
+                    {
+                        if (newres.Id == 0)
+                        {
+                            var res = new ActivityResourceEntity();
+                            res.MinOccurs = newres.MinOccurs;
+                            res.MaxOccurs = newres.MaxOccurs;
+                            ae.Resources.Add(res);
+                        }
+                    }                    
                     await dao.SaveChanges();
                     dao.CommitTransaction();
                 }

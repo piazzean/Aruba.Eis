@@ -1,6 +1,6 @@
 ﻿@model Aruba.Eis.Models.Bl.Activity
 @using Aruba.Eis
-@using MyToolkit.Html
+@using Aruba.MvcToolkit.Html
 @{
     ViewBag.Title = I18nResource.EDIT_ACTIVITY;
 }
@@ -38,7 +38,7 @@
                 @Html.ActionLink(I18nResource.CANCEL, "Index", null, new { @class = "btn btn-default" })
             </div>
         </div>
-        
+
         <table id="Resources" class="table">
             <thead>
             <tr>
@@ -48,10 +48,8 @@
                 <th></th>
             </tr>
             </thead>
-            <tbody>
-                @Html.CollectionEditorFor(m => m.Resources, "_Resources", "/ActivityResource/Update",
+                @Html.CollectionEditorFor(m => m.Resources, "_Resources", "/Activity/AddResource",
                     "Add Resource", new { @class = "btn btn-default" })
-            </tbody>
         </table>
         
     </div>

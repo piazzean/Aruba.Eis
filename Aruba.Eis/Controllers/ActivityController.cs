@@ -122,6 +122,11 @@ namespace Aruba.Eis.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "Id,Code,Name,Resources")] Activity activity)
         {
+            foreach (var key in ModelState.Keys)
+            {
+                if (key.EndsWith("Role.Name"))
+                    ModelState[key].Errors.Clear();
+            }
             if (ModelState.IsValid)
             {
                 await ActivityService.Save(activity);

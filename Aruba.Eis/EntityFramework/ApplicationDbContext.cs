@@ -60,7 +60,7 @@ namespace Aruba.Eis.EntityFramework
                 .HasRequired<ActivityEntity>(ar => ar.Activity)
                 .WithMany(a => a.Resources)
                 .HasForeignKey<int>(ar => ar.ActivityId)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
 
             // Add Schedule-ScheduleResource One to many relationship
             modelBuilder.Entity<ScheduleResourceEntity>()
