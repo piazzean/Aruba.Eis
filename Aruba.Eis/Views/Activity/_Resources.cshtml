@@ -4,19 +4,19 @@
 <tr>
 @using (Html.BeginCollectionItem("Resources"))
 {
-    <td>@Html.DisplayFor(m => m.Id)</td>
-    <td>@Html.TextBoxFor(m => m.Role)</td>
+    @Html.HiddenFor(m => m.Id)
     <td>
-        <span id="minoccurs" class="read">@Model.MinOccurs</span>
-        @Html.TextBox("MinOccurs", 1, new {@class = "edit"})
+        @Html.TextBoxFor(m => m.Role.Id, @Model.Role.Id, new {@class = "edit"})
     </td>
     <td>
-        <span id="maxoccors" class="read">@Model.MaxOccors</span>
-        @Html.TextBox("MaxOccors", 1, new {@class = "edit"})
+        @Html.TextBox("MinOccurs", @Model.MinOccurs, new {@class = "edit"})
     </td>
     <td>
-        <button type="button" class="delete" data-id="@Model.Id">Delete</button>
-        @Html.HiddenFor(m => m.Id)
+        @Html.TextBox("MaxOccors", @Model.MaxOccors, new {@class = "edit"})
+    </td>
+    <td>
+        <input type="button" value="Delete" class="btn btn-default"
+               onclick="$(this).parent().parent().remove();" />
     </td>
 }
 </tr>

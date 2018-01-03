@@ -1,5 +1,6 @@
 ﻿@model Aruba.Eis.Models.Bl.Activity
 @using Aruba.Eis
+@using MyToolkit.Html
 @{
     ViewBag.Title = I18nResource.EDIT_ACTIVITY;
 }
@@ -38,37 +39,66 @@
             </div>
         </div>
         
-    </div>
-}
-
-<p>
-    <button id="add-resource" class="btn btn-warning">Add</button>
-</p>
-
-    <table id="Resources" class="">
-        <thead>
+        <table id="Resources" class="table">
+            <thead>
             <tr>
-                <th>Id</th>
                 <th>Role</th>
                 <th>MinOccurs</th>
                 <th>MaxOccors</th>
+                <th></th>
             </tr>
+            </thead>
+            <tbody>
+                @Html.CollectionEditorFor(m => m.Resources, "_Resources", "/ActivityResource/Update",
+                    "Add Resource", new { @class = "btn btn-default" })
+            </tbody>
+        </table>
+        
+    </div>
+    
+
+    @*
+    <p>
+        <a id="add-resource" class="btn btn-warning">Add</a>
+    </p>
+
+    <table id="Resources" class="table">
+        <thead>
+        <tr>
+            <th>Role</th>
+            <th>MinOccurs</th>
+            <th>MaxOccors</th>
+            <th></th>
+        </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model.Resources)
-            {
-                @Html.Partial("_Resources", item)
-            }
+        @foreach (var item in Model.Resources)
+        {
+            Html.RenderPartial("_Resources", item);
+        }
         </tbody>
     </table>
+    *@
+    
+}
+
 
     <script>
           var tableBody = $('#Resources tbody');
           var url = '@Url.Action("AddResource", "Activity")'; 
           $('#add-resource').click(function() {
-            $.get(url, function(response) {
-              tableBody.append(response);
-            });
+              $.get(url, function(response) {
+                  tableBody.append(response);
+                  $('.edit').hide();
+              });
+              @*
+              $.ajax({
+                    async: false,
+                    url: '/Company/AddNewEmployee'
+                }).success(function (partialView) {
+                    $('#new-Employee').append(partialView);
+                });
+              *@
           });
     </script>
 

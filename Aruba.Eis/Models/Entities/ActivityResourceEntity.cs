@@ -16,7 +16,7 @@ namespace Aruba.Eis.Models.Entities
         public string RoleId { get; set; }
 
         [ForeignKey("RoleId")]
-        public IdentityRole Role { get; set; }
+        public virtual IdentityRole Role { get; set; }
 
         public int MinOccurs { get; set; }
 

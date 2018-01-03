@@ -120,7 +120,7 @@ namespace Aruba.Eis.Controllers
         //
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,Code,Name")] Activity activity)
+        public async Task<ActionResult> Edit([Bind(Include = "Id,Code,Name,Resources")] Activity activity)
         {
             if (ModelState.IsValid)
             {
@@ -164,6 +164,7 @@ namespace Aruba.Eis.Controllers
         public PartialViewResult AddResource()
         {
             var model = new ActivityResource();
+            model.Role = new Role();
             return PartialView("_Resources", model);
         }
     }

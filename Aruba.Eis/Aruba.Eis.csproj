@@ -110,6 +110,12 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
+    <Reference Include="MyToolkit, Version=2.5.16.0, Culture=neutral, PublicKeyToken=3e349a1360994d26">
+      <HintPath>..\packages\MyToolkit.2.5.16\lib\portable-net45+wp8+win8+wpa81\MyToolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="MyToolkit.AspNetMvc, Version=2.5.16.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\MyToolkit.AspNet.Mvc.2.5.16\lib\net45\MyToolkit.AspNetMvc.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -321,11 +327,8 @@
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Areas\HelpPage\Views\_ViewStart.cshtml" />
     <Content Include="Content\aruba_pec.png" />
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
     <Content Include="favicon.ico" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Migrations\MigrationCommands.txt" />
     <Content Include="Scripts\app\gridhelper.js" />
@@ -334,8 +337,6 @@
     <Content Include="Scripts\app\app.viewmodel.js" />
     <Content Include="Scripts\app\common.js" />
     <Content Include="Scripts\app\home.viewmodel.js" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\HelpPage\Views\Web.config" />
     <Content Include="Areas\HelpPage\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\ResourceModel.cshtml" />
@@ -358,16 +359,68 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Content\bootstrap-theme.css" />
+    <None Include="Content\bootstrap-theme.css.map" />
+    <None Include="Content\bootstrap-theme.min.css" />
+    <None Include="Content\bootstrap-theme.min.css.map" />
+    <None Include="Content\bootstrap.css" />
+    <None Include="Content\bootstrap.css.map" />
+    <None Include="Content\bootstrap.min.css" />
+    <None Include="Content\bootstrap.min.css.map" />
+    <None Include="Content\themes\base\accordion.css" />
+    <None Include="Content\themes\base\all.css" />
+    <None Include="Content\themes\base\autocomplete.css" />
+    <None Include="Content\themes\base\base.css" />
+    <None Include="Content\themes\base\button.css" />
+    <None Include="Content\themes\base\core.css" />
+    <None Include="Content\themes\base\datepicker.css" />
+    <None Include="Content\themes\base\dialog.css" />
+    <None Include="Content\themes\base\draggable.css" />
+    <None Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <None Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <None Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <None Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <None Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <None Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <None Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <None Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <None Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <None Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <None Include="Content\themes\base\images\ui-icons_444444_256x240.png" />
+    <None Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <None Include="Content\themes\base\images\ui-icons_555555_256x240.png" />
+    <None Include="Content\themes\base\images\ui-icons_777620_256x240.png" />
+    <None Include="Content\themes\base\images\ui-icons_777777_256x240.png" />
+    <None Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <None Include="Content\themes\base\images\ui-icons_cc0000_256x240.png" />
+    <None Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <None Include="Content\themes\base\images\ui-icons_ffffff_256x240.png" />
+    <None Include="Content\themes\base\jquery-ui.css" />
+    <None Include="Content\themes\base\jquery-ui.min.css" />
+    <None Include="Content\themes\base\menu.css" />
+    <None Include="Content\themes\base\progressbar.css" />
+    <None Include="Content\themes\base\resizable.css" />
+    <None Include="Content\themes\base\selectable.css" />
+    <None Include="Content\themes\base\selectmenu.css" />
+    <None Include="Content\themes\base\slider.css" />
+    <None Include="Content\themes\base\sortable.css" />
+    <None Include="Content\themes\base\spinner.css" />
+    <None Include="Content\themes\base\tabs.css" />
+    <None Include="Content\themes\base\theme.css" />
+    <None Include="Content\themes\base\tooltip.css" />
+    <None Include="fonts\glyphicons-halflings-regular.eot" />
+    <None Include="fonts\glyphicons-halflings-regular.svg" />
+    <None Include="fonts\glyphicons-halflings-regular.ttf" />
+    <None Include="fonts\glyphicons-halflings-regular.woff" />
+    <None Include="fonts\glyphicons-halflings-regular.woff2" />
+    <None Include="Scripts\bootstrap.js" />
+    <None Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="Scripts\jquery-1.10.2.js" />
-    <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\knockout-2.3.0.debug.js" />
     <Content Include="Scripts\knockout-2.3.0.js" />
     <Content Include="Scripts\knockout.validation.debug.js" />
     <Content Include="Scripts\knockout.validation.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Scripts\respond.js" />
-    <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\sammy-0.7.4.js" />
     <Content Include="Scripts\sammy-0.7.4.min.js" />
     <Content Include="Views\_ViewStart.cshtml" />
@@ -418,22 +471,30 @@
     <Content Include="Views\Role\Delete.cshtml" />
     <Content Include="Views\Activity\_Resources.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Collection.cshtml" />
+    <None Include="Scripts\jquery-3.2.1-vsdoc.js" />
+    <None Include="Scripts\jquery-3.2.1.js" />
+    <None Include="Scripts\jquery-3.2.1.min.js" />
+    <None Include="Scripts\jquery-3.2.1.min.map" />
+    <None Include="Scripts\jquery-3.2.1.slim.js" />
+    <None Include="Scripts\jquery-3.2.1.slim.min.js" />
+    <None Include="Scripts\jquery-3.2.1.slim.min.map" />
+    <None Include="Scripts\jquery-ui-1.12.1.js" />
+    <None Include="Scripts\jquery-ui-1.12.1.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <None Include="Scripts\jquery.validate.js" />
+    <None Include="Scripts\jquery.validate.min.js" />
+    <None Include="Scripts\jquery.validate.unobtrusive.js" />
+    <None Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <None Include="Scripts\respond.js" />
+    <None Include="Scripts\respond.matchmedia.addListener.js" />
+    <None Include="Scripts\respond.matchmedia.addListener.min.js" />
+    <None Include="Scripts\respond.min.js" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="packages.config" />
-    <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="I18nResource.resx">

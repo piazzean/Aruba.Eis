@@ -1,5 +1,5 @@
 ﻿$(function() {
-        $('.edit').hide();
+        $('.read').hide();
         $('.edit-case').on('click', function() {
             var tr = $(this).parents('tr:first');
             tr.find('.edit, .read').toggle();
@@ -8,17 +8,26 @@
             e.preventDefault();
             var tr = $(this).parents('tr:first');
             id = $(this).prop('id');
+            var role = tr.find('#Role').val();
             var minoccurs = tr.find('#MinOccurs').val();
+            var maxoccors = tr.find('#MaxOccors').val();
             $.ajax({
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
                 url: "/ActivityResource/Update",
-                data: JSON.stringify({ "Id":id,"MinOccurs": minoccurs}),
+                data: JSON.stringify({ 
+                    "Id":id,
+                    "Role": role,
+                    "MinOccurs": minoccurs,
+                    "MaxOccors": maxoccors
+                }),
                 dataType: "json",
                 success: function(data) {
                     tr.find('.edit, .read').toggle();
                     $('.edit').hide();
+                    tr.find('#role').text(data.Role);
                     tr.find('#minoccurs').text(data.MinOccurs);
+                    tr.find('#maxoccors').text(data.MaxOccors);
                 },
                 error: function (err) {
                     alert("error");
