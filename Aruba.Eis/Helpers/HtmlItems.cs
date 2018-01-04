@@ -22,8 +22,8 @@ namespace Aruba.Eis.Helpers
             {
                 RoleListItems.Add(new SelectListItem()
                     {
-                        Text = "Role AU",
-                        Value = "AU"
+                        Text = role.Name,
+                        Value = role.Id
                     }
                 );
             }

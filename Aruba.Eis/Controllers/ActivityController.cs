@@ -171,6 +171,7 @@ namespace Aruba.Eis.Controllers
         public PartialViewResult AddResource()
         {
             var model = new ActivityResource();
+            model.RoleId = "";
             return PartialView("_Resources", model);
         }
     }

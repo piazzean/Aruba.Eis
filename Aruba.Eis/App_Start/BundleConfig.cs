@@ -18,6 +18,7 @@ namespace Aruba.Eis
                 "~/Scripts/jquery.unobtrusive*",
                 "~/Scripts/jquery.validate*"));
 
+            /*
             bundles.Add(new ScriptBundle("~/bundles/knockout").Include(
                 "~/Scripts/knockout-{version}.js",
                 "~/Scripts/knockout.validation.js"));
@@ -29,22 +30,30 @@ namespace Aruba.Eis
                 "~/Scripts/app/app.viewmodel.js",
                 "~/Scripts/app/home.viewmodel.js",
                 "~/Scripts/app/_run.js"));
-
+            */
+            
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at https://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                 "~/Scripts/modernizr-*"));
+            
+            bundles.Add(new ScriptBundle("~/bundles/fullcalendar").Include(
+                "~/Scripts/moment.min.js",
+                "~/Scripts/fullcalendar.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                 "~/Scripts/bootstrap.js",
                 "~/Scripts/respond.js"));
 
+            
+            
+            
             bundles.Add(new StyleBundle("~/Content/css").Include(
                  "~/Content/bootstrap.css",
                  "~/Content/Site.css"));
-
-            bundles.Add(new ScriptBundle("~/bundles/gridhelper").Include(
-                "~/Scripts/app/gridhelper.js"));
+            
+            bundles.Add(new StyleBundle("~/Content/fullcalendar").Include(
+                "~/Content/fullcalendar.css"));
         }
     }
 }

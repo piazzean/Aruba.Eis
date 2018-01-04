@@ -1,7 +1,54 @@
-﻿@section SPAViews {
-    @Html.Partial("_Home")
+﻿@Styles.Render("~/Content/fullcalendar")
+
+@section SPAViews {
+
+    <p></p>
+    
+    <div id='calendar' style="width:100%"></div> 
 }
-@section Scripts{
+@section Scripts {
+    @* 
     @Scripts.Render("~/bundles/knockout")
     @Scripts.Render("~/bundles/app")
+    *@
+
+    @Scripts.Render("~/bundles/fullcalendar")
+    
+    <script>
+        $(document).ready(function() {
+
+            $("#calendar").fullCalendar({
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,agendaWeek,agendaDay'
+                },
+                defaultView: 'agendaWeek',
+                editable: true,
+                allDaySlot: false,
+                selectable: true,
+                slotMinutes: 15,
+                contentHeight: 550,
+                firstDay: 1,
+                views: {
+                    basic: {
+                        // options apply to basicWeek and basicDay views
+                    },
+                    agenda: {
+                        // options apply to agendaWeek and agendaDay views
+                        slotDuration : '01:00:00',
+                        slotLabelFormat: 'H(:mm)'
+                    },
+                    week: {
+                        // options apply to basicWeek and agendaWeek views
+                    },
+                    day: {
+                        // options apply to basicDay and agendaDay views
+                    }
+                }
+            });
+        
+        });
+    
+    </script>
 }
