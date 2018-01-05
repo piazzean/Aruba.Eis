@@ -10,32 +10,32 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-        
+
     <div class="form-horizontal">
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <hr/>
+        @Html.ValidationSummary(true, "", new {@class = "text-danger"})
         @Html.HiddenFor(model => model.Id)
-    
+
         <div class="form-group">
-            @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Code, htmlAttributes: new {@class = "control-label col-md-2"})
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.Code, new {htmlAttributes = new {@class = "form-control"}})
+                @Html.ValidationMessageFor(model => model.Code, "", new {@class = "text-danger"})
             </div>
         </div>
-    
+
         <div class="form-group">
-            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Name, htmlAttributes: new {@class = "control-label col-md-2"})
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.Name, new {htmlAttributes = new {@class = "form-control"}})
+                @Html.ValidationMessageFor(model => model.Name, "", new {@class = "text-danger"})
             </div>
         </div>
-    
+
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="@I18nResource.SAVE" class="btn btn-warning" />
-                @Html.ActionLink(I18nResource.CANCEL, "Index", null, new { @class = "btn btn-default" })
+                <input type="submit" value="@I18nResource.SAVE" class="btn btn-warning"/>
+                @Html.ActionLink(I18nResource.CANCEL, "Index", null, new {@class = "btn btn-default"})
             </div>
         </div>
 
@@ -48,88 +48,10 @@
                 <th></th>
             </tr>
             </thead>
-                @Html.CollectionEditorFor(m => m.Resources, "_Resources", "/Activity/AddResource",
-                    "Add Resource", new { @class = "btn btn-default" })
+            @Html.CollectionEditorFor(m => m.Resources, "_Resources", "/Activity/AddResource",
+                "Add Resource", new {@class = "btn btn-default"})
         </table>
-        
+
     </div>
-    
 
-    @*
-    <p>
-        <a id="add-resource" class="btn btn-warning">Add</a>
-    </p>
-
-    <table id="Resources" class="table">
-        <thead>
-        <tr>
-            <th>Role</th>
-            <th>MinOccurs</th>
-            <th>MaxOccors</th>
-            <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach (var item in Model.Resources)
-        {
-            Html.RenderPartial("_Resources", item);
-        }
-        </tbody>
-    </table>
-    *@
-    
 }
-
-
-    <script>
-          var tableBody = $('#Resources tbody');
-          var url = '@Url.Action("AddResource", "Activity")'; 
-          $('#add-resource').click(function() {
-              $.get(url, function(response) {
-                  tableBody.append(response);
-                  $('.edit').hide();
-              });
-              @*
-              $.ajax({
-                    async: false,
-                    url: '/Company/AddNewEmployee'
-                }).success(function (partialView) {
-                    $('#new-Employee').append(partialView);
-                });
-              *@
-          });
-    </script>
-
-@*
-    @{
-        var grid = new WebGrid(
-                    canPage: false,
-                    canSort: false,
-                    ajaxUpdateContainerId: "grid");
-
-        grid.Bind(Model.Resources, rowCount: Model.Resources.Count, autoSortAndPage: false);
-        // grid.Pager(WebGridPagerModes.All);
-
-        @grid.GetHtml(htmlAttributes: new { id = "grid" },   // id for ajaxUpdateContainerId parameter
-                    fillEmptyRows: false,
-                    tableStyle: "table table-bordered table-hover",
-                    mode: WebGridPagerModes.All,
-                    columns: grid.Columns(
-                      grid.Column("Id", "Id"),
-                      grid.Column("MaxOccors", "Max. Occurrences", style: "col-lg-4"),
-                      grid.Column("MinOccurs",
-                            format:
-                            @<text>
-                                <span id="minoccurs" class="read">1</span>
-                                @Html.TextBox("MinOccurs", 1, new { @class = "edit" })
-                            </text>),
-                      grid.Column(header: "Action", canSort: false, style: "action",
-                        format: @<text>
-                        <button class="edit-case read" id="@item.Id">Edit</button>
-                        <button class="update-case edit" id="@item.Id">Update</button>
-                        <button class="cancel-case edit" id="@item.Id">Cancel</button>
-                        </text>)
-                    ));
-    }
-
-*@

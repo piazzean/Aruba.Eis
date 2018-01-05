@@ -1,6 +1,6 @@
 ﻿@Styles.Render("~/Content/fullcalendar")
 
-@section SPAViews {
+@section Content {
 
     <p></p>
     
@@ -18,8 +18,16 @@
         $(document).ready(function() {
 
             $("#calendar").fullCalendar({
+                customButtons: {
+                    addScheduleButton: {
+                        text: 'Add Schedule',
+                        click: function () {
+                            window.location.href = "/Schedule/Create"
+                        }
+                    }
+                },
                 header: {
-                    left: 'prev,next today',
+                    left: 'prev,next today addScheduleButton',
                     center: 'title',
                     right: 'month,agendaWeek,agendaDay'
                 },

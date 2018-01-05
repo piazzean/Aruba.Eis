@@ -28,5 +28,23 @@ namespace Aruba.Eis.Helpers
                 );
             }
         }
+
+        public static List<SelectListItem> ActivityListItems { get; set; }
+
+        public static async Task LoadActivityListItems()
+        {
+            ActivityListItems = new List<SelectListItem>();
+            var activityService = BeanFactory.GetInstance<IActivityService>();
+            var activities = await activityService.Search();
+            foreach (var activity in activities)
+            {
+                ActivityListItems.Add(new SelectListItem()
+                    {
+                        Text = activity.Name,
+                        Value = ""+activity.Id
+                    }
+                );
+            }
+        }
     }
 }

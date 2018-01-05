@@ -45,7 +45,9 @@ namespace Aruba.Eis
                 "~/Scripts/bootstrap.js",
                 "~/Scripts/respond.js"));
 
-            
+            bundles.Add(new ScriptBundle("~/bundles/bootstrap-datetimepicker").Include(
+                "~/Scripts/moment.min.js",
+                "~/Scripts/bootstrap-datetimepicker.min.js"));
             
             
             bundles.Add(new StyleBundle("~/Content/css").Include(
@@ -54,6 +56,9 @@ namespace Aruba.Eis
             
             bundles.Add(new StyleBundle("~/Content/fullcalendar").Include(
                 "~/Content/fullcalendar.css"));
+            
+            bundles.Add(new StyleBundle("~/Content/bootstrap-datetimepicker").Include(
+                "~/Content/bootstrap-datetimepicker.min.css"));
         }
     }
 }

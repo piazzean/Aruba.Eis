@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Aruba.Eis.Models.Entities
@@ -15,11 +14,8 @@ namespace Aruba.Eis.Models.Entities
 
         public string RoleId { get; set; }
 
-        [ForeignKey("RoleId")]
-        public IdentityRole Role { get; set; }
-
         public int MinOccurs { get; set; }
 
-        public int MaxOccors { get; set; }
+        public int MaxOccurs { get; set; }
     }
 }

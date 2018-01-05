@@ -21,7 +21,9 @@ namespace Aruba.Eis.Automapper
             CreateMap<Role, IdentityRole>();
 
             CreateMap<ActivityResourceEntity, ActivityResource>();
-            CreateMap<ActivityResource, ActivityResourceEntity>();
+            CreateMap<ActivityResource, ActivityResourceEntity>()
+                .ForMember(dest => dest.Activity, opt => opt.Ignore())
+                .ForMember(dest => dest.ActivityId, opt => opt.Ignore());
 
         }
     }

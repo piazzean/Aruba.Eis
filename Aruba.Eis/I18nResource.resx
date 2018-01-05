@@ -132,6 +132,9 @@
   <data name="CREATE" xml:space="preserve">
     <value>Create</value>
   </data>
+  <data name="CREATE_SCHEDULE" xml:space="preserve">
+    <value>Create Schedule</value>
+  </data>
   <data name="DELETE_ACTIVITY" xml:space="preserve">
     <value>Delete Activity</value>
   </data>
@@ -168,6 +171,9 @@
   <data name="NEW_ROLE" xml:space="preserve">
     <value>New Role</value>
   </data>
+  <data name="NEXT" xml:space="preserve">
+    <value>Next</value>
+  </data>
   <data name="ROLE" xml:space="preserve">
     <value>Role</value>
   </data>
@@ -176,6 +182,9 @@
   </data>
   <data name="SAVE" xml:space="preserve">
     <value>Save</value>
+  </data>
+  <data name="SCHEDULE_DETAILS" xml:space="preserve">
+    <value>Schedule Details</value>
   </data>
   <data name="SEARCH" xml:space="preserve">
     <value>Search</value>

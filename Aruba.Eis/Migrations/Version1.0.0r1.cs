@@ -146,19 +146,17 @@ namespace Aruba.Eis.Migrations
                     {
                         Id = c.Int(nullable: false, identity: true),
                         ScheduleId = c.Int(nullable: false),
-                        RoleId = c.String(maxLength: 128),
+                        RoleId = c.String(),
                         MinOccurs = c.Int(nullable: false),
-                        MaxOccors = c.Int(nullable: false),
+                        MaxOccurs = c.Int(nullable: false),
                         DateCreated = c.DateTime(),
                         UserCreated = c.String(maxLength: 50),
                         DateModified = c.DateTime(),
                         UserModified = c.String(maxLength: 50),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.AspNetRoles", t => t.RoleId)
                 .ForeignKey("dbo.Schedules", t => t.ScheduleId)
-                .Index(t => t.ScheduleId)
-                .Index(t => t.RoleId);
+                .Index(t => t.ScheduleId);
             
             CreateTable(
                 "dbo.Schedules",
@@ -183,19 +181,17 @@ namespace Aruba.Eis.Migrations
                         Id = c.Int(nullable: false, identity: true),
                         ScheduleId = c.Int(nullable: false),
                         UserId = c.String(maxLength: 128),
-                        RoleId = c.String(maxLength: 128),
+                        RoleId = c.String(),
                         DateCreated = c.DateTime(),
                         UserCreated = c.String(maxLength: 50),
                         DateModified = c.DateTime(),
                         UserModified = c.String(maxLength: 50),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.AspNetRoles", t => t.RoleId)
                 .ForeignKey("dbo.Schedules", t => t.ScheduleId)
                 .ForeignKey("dbo.AspNetUsers", t => t.UserId)
                 .Index(t => t.ScheduleId)
-                .Index(t => t.UserId)
-                .Index(t => t.RoleId);
+                .Index(t => t.UserId);
             
         }
         
@@ -204,8 +200,6 @@ namespace Aruba.Eis.Migrations
             DropForeignKey("dbo.ScheduleResources", "ScheduleId", "dbo.Schedules");
             DropForeignKey("dbo.Assignements", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.Assignements", "ScheduleId", "dbo.Schedules");
-            DropForeignKey("dbo.Assignements", "RoleId", "dbo.AspNetRoles");
-            DropForeignKey("dbo.ScheduleResources", "RoleId", "dbo.AspNetRoles");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
             DropForeignKey("dbo.TeamResources", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
@@ -213,10 +207,8 @@ namespace Aruba.Eis.Migrations
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.TeamResources", "TeamId", "dbo.Teams");
             DropForeignKey("dbo.ActivityResources", "ActivityId", "dbo.Activities");
-            DropIndex("dbo.Assignements", new[] { "RoleId" });
             DropIndex("dbo.Assignements", new[] { "UserId" });
             DropIndex("dbo.Assignements", new[] { "ScheduleId" });
-            DropIndex("dbo.ScheduleResources", new[] { "RoleId" });
             DropIndex("dbo.ScheduleResources", new[] { "ScheduleId" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });

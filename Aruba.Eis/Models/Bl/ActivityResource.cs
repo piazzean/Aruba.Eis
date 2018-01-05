@@ -10,6 +10,8 @@ namespace Aruba.Eis.Models.Bl
     {
         public int Id { get; set; }
 
+        public Activity Activity { get; set; }
+
         [Required]
         public string RoleId { get; set; }
 

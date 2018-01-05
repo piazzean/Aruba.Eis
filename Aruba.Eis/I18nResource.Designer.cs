@@ -106,6 +106,15 @@ namespace Aruba.Eis {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create Schedule.
+        /// </summary>
+        public static string CREATE_SCHEDULE {
+            get {
+                return ResourceManager.GetString("CREATE_SCHEDULE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete Activity.
         /// </summary>
         public static string DELETE_ACTIVITY {
@@ -214,6 +223,15 @@ namespace Aruba.Eis {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Next.
+        /// </summary>
+        public static string NEXT {
+            get {
+                return ResourceManager.GetString("NEXT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Role.
         /// </summary>
         public static string ROLE {
@@ -237,6 +255,15 @@ namespace Aruba.Eis {
         public static string SAVE {
             get {
                 return ResourceManager.GetString("SAVE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Schedule Details.
+        /// </summary>
+        public static string SCHEDULE_DETAILS {
+            get {
+                return ResourceManager.GetString("SCHEDULE_DETAILS", resourceCulture);
             }
         }
         
