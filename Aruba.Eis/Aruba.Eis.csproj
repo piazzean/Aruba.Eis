@@ -266,6 +266,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MeController.cs" />
+    <Compile Include="Dao\ScheduleDao.cs" />
     <Compile Include="Dao\UserDao.cs" />
     <Compile Include="Dao\BaseDao.cs" />
     <Compile Include="Dao\ActivityDao.cs" />
@@ -312,7 +313,9 @@
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Helpers\HtmlItems.cs" />
+    <Compile Include="Services\Impl\ScheduleService.cs" />
     <Compile Include="Services\Impl\UserService.cs" />
+    <Compile Include="Services\IScheduleService.cs" />
     <Compile Include="Services\IUserService.cs" />
     <Compile Include="Services\IActivityService.cs" />
     <Compile Include="Services\IMapperService.cs" />

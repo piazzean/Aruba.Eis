@@ -25,6 +25,14 @@ namespace Aruba.Eis.Automapper
                 .ForMember(dest => dest.Activity, opt => opt.Ignore())
                 .ForMember(dest => dest.ActivityId, opt => opt.Ignore());
 
+            CreateMap<ScheduleEntity, Schedule>();
+            CreateMap<Schedule, ScheduleEntity>()
+                .ForMember(dest => dest.Resources, opt => opt.Ignore());
+
+            CreateMap<ScheduleResourceEntity, ScheduleResource>();
+            CreateMap<ScheduleResource, ScheduleResourceEntity>()
+                .ForMember(dest => dest.Schedule, opt => opt.Ignore())
+                .ForMember(dest => dest.ScheduleId, opt => opt.Ignore());
         }
     }
 }

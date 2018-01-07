@@ -30,14 +30,16 @@ namespace Aruba.Eis.Controllers
         /// Dependencies
         /// </summary>
         private IActivityService ActivityService { get; set; }
+        private IScheduleService ScheduleService { get; set; }
 
         /// <summary>
         /// Team Controller constructor
         /// </summary>
-        public ScheduleController(IActivityService activityService)
+        public ScheduleController(IActivityService activityService, IScheduleService scheduleService)
         {
             // DI
             ActivityService = activityService;
+            ScheduleService = scheduleService;
         }
 
         //
@@ -116,11 +118,23 @@ namespace Aruba.Eis.Controllers
         //
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Details([Bind(Include = "Id,StartDateTime,EndDateTime,Resources")] Schedule schedule)
+        public async Task<ActionResult> Details([Bind(Include = "Id,Code,Name,StartDateTime,EndDateTime,Resources")] Schedule schedule)
         {
+            foreach (var key in ModelState.Keys)
+            {
+                if (key.EndsWith("Role.Name"))
+                    ModelState[key].Errors.Clear();
+            }
             if (ModelState.IsValid)
             {
-                // await ActivityService.Save(schedule);
+                if (schedule.Id > 0)
+                {
+                    await ScheduleService.Save(schedule);
+                }
+                else
+                {
+                    await ScheduleService.Create(schedule);
+                }
                 return RedirectToAction("Index", "Home");
             }
             return View(schedule);
