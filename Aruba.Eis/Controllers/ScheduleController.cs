@@ -56,7 +56,7 @@ namespace Aruba.Eis.Controllers
         //
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Activity")] ScheduleCreateViewModel viewModel)
+        public ActionResult Create([Bind(Include = "Activity")] ScheduleCreateViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
@@ -139,5 +139,6 @@ namespace Aruba.Eis.Controllers
             }
             return View(schedule);
         }
+
     }
 }

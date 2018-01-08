@@ -14,15 +14,16 @@ namespace Aruba.Eis.Services.Impl
     public class ScheduleService : IScheduleService
     {
         /// <summary>
-        /// Search schedules by filter
+        /// Search schedules between start and end
         /// </summary>
-        /// <param name="filter"></param>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
         /// <returns></returns>
-        public async Task<IList<Schedule>> Search(string filter = null)
+        public async Task<IList<Schedule>> Search(DateTime start, DateTime end)
         {
             using (var dao = new ScheduleDao())
             {
-                var seList = await dao.Search(filter);
+                var seList = await dao.Search(start, end);
                 var sList = Mapper.Map<IList<ScheduleEntity>, IList<Schedule>>(seList);
                 return sList;
             }

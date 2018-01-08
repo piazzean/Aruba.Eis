@@ -84,7 +84,7 @@ namespace Aruba.Eis.Context
                 _container.RegisterSingleton<IMapperService, MapperService>();
                 _container.RegisterSingleton<IScheduleService, ScheduleService>();
 
-                _container.RegisterWebApiControllers(GlobalConfiguration.Configuration);
+                // _container.RegisterWebApiControllers(GlobalConfiguration.Configuration);
                 _container.RegisterMvcControllers(Assembly.GetExecutingAssembly());
 
                 _container.Verify();

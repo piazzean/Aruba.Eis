@@ -10,11 +10,12 @@ namespace Aruba.Eis.Services
     public interface IScheduleService
     {
         /// <summary>
-        /// Search schedules by filter
+        /// Search schedules between start and end
         /// </summary>
-        /// <param name="filter"></param>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
         /// <returns></returns>
-        Task<IList<Schedule>> Search(string filter = null);
+        Task<IList<Schedule>> Search(DateTime start, DateTime end);
 
         /// <summary>
         /// Find schedule by id

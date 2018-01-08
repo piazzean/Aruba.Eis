@@ -19,16 +19,15 @@ namespace Aruba.Eis.Dao
         }
 
         /// <summary>
-        /// Search Schedules from DB
+        /// Search Schedules between start and end
         /// </summary>
         /// <returns></returns>
-        public async Task<List<ScheduleEntity>> Search(string filter = null)
+        public async Task<List<ScheduleEntity>> Search(DateTime start, DateTime end)
         {
             try
             {
-                var query = _ctx.DbSchedules.AsQueryable();
-                if (filter != null)
-                    query = query.Where(x => x.Code.Contains(filter) || x.Name.Contains(filter));
+                var query = _ctx.DbSchedules.Where(x => x.StartDateTime.CompareTo(end) < 0 &&
+                                                        x.EndDateTime.CompareTo(start) > 0);
                 return await query.ToListAsync();
             }
             catch (Exception e)

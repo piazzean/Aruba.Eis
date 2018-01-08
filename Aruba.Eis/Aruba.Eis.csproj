@@ -259,6 +259,7 @@
     <Compile Include="Automapper\EisMapperProfile.cs" />
     <Compile Include="Context\BeanFactory.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CalendarController.cs" />
     <Compile Include="Controllers\ScheduleController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\ActivityController.cs" />
@@ -292,6 +293,7 @@
     <Compile Include="Models\Bl\Role.cs" />
     <Compile Include="Models\Bl\Activity.cs" />
     <Compile Include="Models\Bl\Schedule.cs" />
+    <Compile Include="Models\Bl\ScheduleEvent.cs" />
     <Compile Include="Models\Bl\ScheduleResource.cs" />
     <Compile Include="Models\Bl\Team.cs" />
     <Compile Include="Models\Entities\TeamResourceEntity.cs" />

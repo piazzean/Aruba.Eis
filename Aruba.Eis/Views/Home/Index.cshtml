@@ -13,15 +13,34 @@
     *@
 
     @Scripts.Render("~/bundles/fullcalendar")
+
+    @Scripts.Render("~/bundles/app")
     
     <script>
         $(document).ready(function() {
+
+            var accessToken = sessionStorage.getItem("accessToken");
+            
+            if (!accessToken) {
+                // The following code looks for a fragment in the URL to get the access token which will be
+                // used to call the protected Web API resource
+                var fragment = common.getFragment();
+
+                if (fragment.access_token) {
+                    // returning with access token, restore old hash, or at least hide token
+                    window.location.hash = fragment.state || '';
+                    sessionStorage.setItem("accessToken", fragment.access_token);
+                } else {
+                    // no token - so bounce to Authorize endpoint in AccountController to sign in or register
+                    window.location = "/Account/Authorize?client_id=web&response_type=token&state=" + encodeURIComponent(window.location.hash);
+                }
+            }
 
             $("#calendar").fullCalendar({
                 customButtons: {
                     addScheduleButton: {
                         text: 'Add Schedule',
-                        click: function () {
+                        click: function() {
                             window.location.href = "/Schedule/Create"
                         }
                     }
@@ -41,22 +60,31 @@
                 views: {
                     basic: {
                         // options apply to basicWeek and basicDay views
+                    
                     },
                     agenda: {
                         // options apply to agendaWeek and agendaDay views
-                        slotDuration : '01:00:00',
+                        slotDuration: '01:00:00',
                         slotLabelFormat: 'H(:mm)'
                     },
                     week: {
                         // options apply to basicWeek and agendaWeek views
+                    
                     },
                     day: {
                         // options apply to basicDay and agendaDay views
+                    
                     }
-                }
+                },
+                eventSources: [
+                    {
+                        url: '/Calendar/getEvents',
+                        headers: { 'Authorization': 'Bearer ' + accessToken }
+                    }    
+                ]
             });
-        
+
         });
-    
+        
     </script>
 }
