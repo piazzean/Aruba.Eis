@@ -104,8 +104,7 @@ namespace Aruba.Eis.Controllers
             }
             else
             {
-                schedule = new Schedule();
-                // schedule = ScheduleService.Find(id);
+                schedule = await ScheduleService.Find(id);
             }
             
             await HtmlItems.LoadRoleListItems();
@@ -118,7 +117,7 @@ namespace Aruba.Eis.Controllers
         //
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Details([Bind(Include = "Id,Code,Name,StartDateTime,EndDateTime,Resources")] Schedule schedule)
+        public async Task<ActionResult> Details([Bind(Include = "Id,Code,Name,StartDateString,EndDateString,Resources")] Schedule schedule)
         {
             foreach (var key in ModelState.Keys)
             {

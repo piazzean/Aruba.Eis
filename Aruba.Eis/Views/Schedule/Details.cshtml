@@ -22,40 +22,40 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Code, htmlAttributes: new {@class = "control-label col-md-2"})
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.Code, new {htmlAttributes = new {@class = "form-control"}})
+                    @Html.EditorFor(model => model.Code, new {htmlAttributes = new {@class = "form-control", @readonly = "readonly"}})
                 </div>
             </div>
 
             <div class="form-group">
                 @Html.LabelFor(model => model.Name, htmlAttributes: new {@class = "control-label col-md-2"})
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.Name, new {htmlAttributes = new {@class = "form-control"}})
+                    @Html.EditorFor(model => model.Name, new {htmlAttributes = new {@class = "form-control", @readonly = "readonly"}})
                 </div>
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.StartDateTime, htmlAttributes: new {@class = "control-label col-md-2"})
+                @Html.Label("Start Date", new {@class = "control-label col-md-2"})
                 <div class="col-md-10">
                     <div class='input-group datepicker'>
                         <span class="input-group-addon">
                             <span class="glyphicon glyphicon-calendar"></span>
                         </span>
-                        @Html.EditorFor(model => model.StartDateTime, new {htmlAttributes = new {@class = "form-control"}})
+                        @Html.EditorFor(model => model.StartDateString, new {htmlAttributes = new {@class = "form-control"}})
                     </div>
-                    @Html.ValidationMessageFor(model => model.StartDateTime, "", new {@class = "text-danger"})
+                    @Html.ValidationMessageFor(model => model.StartDateString, "", new {@class = "text-danger"})
                 </div>
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.EndDateTime, htmlAttributes: new {@class = "control-label col-md-2"})
+                @Html.Label("End Date", new {@class = "control-label col-md-2"})
                 <div class="col-md-10">
                     <div class='input-group datepicker'>
                         <span class="input-group-addon">
                             <span class="glyphicon glyphicon-calendar"></span>
                         </span>
-                        @Html.EditorFor(model => model.EndDateTime, new {htmlAttributes = new {@class = "form-control"}})
+                        @Html.EditorFor(model => model.EndDateString, new {htmlAttributes = new {@class = "form-control"}})
                     </div>
-                    @Html.ValidationMessageFor(model => model.EndDateTime, "", new {@class = "text-danger"})
+                    @Html.ValidationMessageFor(model => model.EndDateString, "", new {@class = "text-danger"})
                 </div>
             </div>
 
@@ -95,7 +95,8 @@
             $('.datepicker').datetimepicker({
                 sideBySide: true,
                 format: 'DD/MM/YYYY HH:mm',
-                stepping: 30
+                stepping: 30,
+                ignoreReadonly: true
             });        
         });
     
