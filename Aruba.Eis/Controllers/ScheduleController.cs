@@ -113,7 +113,7 @@ namespace Aruba.Eis.Controllers
         }
 
         //
-        // POST: /Activity/Details
+        // POST: /Schedule/Details
         //
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -137,6 +137,34 @@ namespace Aruba.Eis.Controllers
                 return RedirectToAction("Index", "Home");
             }
             return View(schedule);
+        }
+        
+        //
+        // GET: /Schedule/Delete/5
+        //
+        public async Task<ActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Schedule schedule = await ScheduleService.Find(id);
+            if (schedule == null)
+            {
+                return HttpNotFound();
+            }
+            return View(schedule);
+        }
+
+        //
+        // POST: /Schedule/Delete/5
+        //
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> DeleteConfirmed(int id)
+        {
+            await ScheduleService.Remove(id);
+            return RedirectToAction("Index", "Home");
         }
 
     }

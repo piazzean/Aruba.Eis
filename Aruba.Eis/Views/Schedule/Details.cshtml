@@ -63,6 +63,7 @@
                 <div class="col-md-offset-2 col-md-10">
                     <input type="submit" value="@I18nResource.SAVE" class="btn btn-warning"/>
                     @Html.ActionLink(I18nResource.CANCEL, "Index", "Home", null, new {@class = "btn btn-default"})
+                    @Html.ActionLink(I18nResource.DELETE, "Delete", new {id = Model.Id}, new { @class = "btn btn-default"})
                 </div>
             </div>
 

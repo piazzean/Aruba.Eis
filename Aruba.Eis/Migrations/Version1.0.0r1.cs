@@ -36,16 +36,36 @@ namespace Aruba.Eis.Migrations
                         UserModified = c.String(maxLength: 50),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Activities", t => t.ActivityId)
+                .ForeignKey("dbo.Activities", t => t.ActivityId, cascadeDelete: true)
                 .Index(t => t.ActivityId);
             
             CreateTable(
-                "dbo.Teams",
+                "dbo.ScheduleResources",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        ScheduleId = c.Int(nullable: false),
+                        RoleId = c.String(),
+                        MinOccurs = c.Int(nullable: false),
+                        MaxOccurs = c.Int(nullable: false),
+                        DateCreated = c.DateTime(),
+                        UserCreated = c.String(maxLength: 50),
+                        DateModified = c.DateTime(),
+                        UserModified = c.String(maxLength: 50),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Schedules", t => t.ScheduleId, cascadeDelete: true)
+                .Index(t => t.ScheduleId);
+            
+            CreateTable(
+                "dbo.Schedules",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
                         Code = c.String(nullable: false, maxLength: 50),
                         Name = c.String(nullable: false, maxLength: 255),
+                        StartDateTime = c.DateTime(nullable: false),
+                        EndDateTime = c.DateTime(nullable: false),
                         DateCreated = c.DateTime(),
                         UserCreated = c.String(maxLength: 50),
                         DateModified = c.DateTime(),
@@ -54,21 +74,22 @@ namespace Aruba.Eis.Migrations
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
-                "dbo.TeamResources",
+                "dbo.Assignements",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        TeamId = c.Int(nullable: false),
-                        UserId = c.String(nullable: false, maxLength: 128),
+                        ScheduleId = c.Int(nullable: false),
+                        UserId = c.String(maxLength: 128),
+                        RoleId = c.String(),
                         DateCreated = c.DateTime(),
                         UserCreated = c.String(maxLength: 50),
                         DateModified = c.DateTime(),
                         UserModified = c.String(maxLength: 50),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Teams", t => t.TeamId)
+                .ForeignKey("dbo.Schedules", t => t.ScheduleId, cascadeDelete: true)
                 .ForeignKey("dbo.AspNetUsers", t => t.UserId)
-                .Index(t => t.TeamId)
+                .Index(t => t.ScheduleId)
                 .Index(t => t.UserId);
             
             CreateTable(
@@ -131,6 +152,38 @@ namespace Aruba.Eis.Migrations
                 .Index(t => t.RoleId);
             
             CreateTable(
+                "dbo.TeamResources",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        TeamId = c.Int(nullable: false),
+                        UserId = c.String(nullable: false, maxLength: 128),
+                        DateCreated = c.DateTime(),
+                        UserCreated = c.String(maxLength: 50),
+                        DateModified = c.DateTime(),
+                        UserModified = c.String(maxLength: 50),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Teams", t => t.TeamId, cascadeDelete: true)
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
+                .Index(t => t.TeamId)
+                .Index(t => t.UserId);
+            
+            CreateTable(
+                "dbo.Teams",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Code = c.String(nullable: false, maxLength: 50),
+                        Name = c.String(nullable: false, maxLength: 255),
+                        DateCreated = c.DateTime(),
+                        UserCreated = c.String(maxLength: 50),
+                        DateModified = c.DateTime(),
+                        UserModified = c.String(maxLength: 50),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
                 "dbo.AspNetRoles",
                 c => new
                     {
@@ -140,95 +193,42 @@ namespace Aruba.Eis.Migrations
                 .PrimaryKey(t => t.Id)
                 .Index(t => t.Name, unique: true, name: "RoleNameIndex");
             
-            CreateTable(
-                "dbo.ScheduleResources",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        ScheduleId = c.Int(nullable: false),
-                        RoleId = c.String(),
-                        MinOccurs = c.Int(nullable: false),
-                        MaxOccurs = c.Int(nullable: false),
-                        DateCreated = c.DateTime(),
-                        UserCreated = c.String(maxLength: 50),
-                        DateModified = c.DateTime(),
-                        UserModified = c.String(maxLength: 50),
-                    })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Schedules", t => t.ScheduleId)
-                .Index(t => t.ScheduleId);
-            
-            CreateTable(
-                "dbo.Schedules",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        Code = c.String(nullable: false, maxLength: 50),
-                        Name = c.String(nullable: false, maxLength: 255),
-                        StartDateTime = c.DateTime(nullable: false),
-                        EndDateTime = c.DateTime(nullable: false),
-                        DateCreated = c.DateTime(),
-                        UserCreated = c.String(maxLength: 50),
-                        DateModified = c.DateTime(),
-                        UserModified = c.String(maxLength: 50),
-                    })
-                .PrimaryKey(t => t.Id);
-            
-            CreateTable(
-                "dbo.Assignements",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        ScheduleId = c.Int(nullable: false),
-                        UserId = c.String(maxLength: 128),
-                        RoleId = c.String(),
-                        DateCreated = c.DateTime(),
-                        UserCreated = c.String(maxLength: 50),
-                        DateModified = c.DateTime(),
-                        UserModified = c.String(maxLength: 50),
-                    })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Schedules", t => t.ScheduleId)
-                .ForeignKey("dbo.AspNetUsers", t => t.UserId)
-                .Index(t => t.ScheduleId)
-                .Index(t => t.UserId);
-            
         }
         
         public override void Down()
         {
+            DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
             DropForeignKey("dbo.ScheduleResources", "ScheduleId", "dbo.Schedules");
             DropForeignKey("dbo.Assignements", "UserId", "dbo.AspNetUsers");
-            DropForeignKey("dbo.Assignements", "ScheduleId", "dbo.Schedules");
-            DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
             DropForeignKey("dbo.TeamResources", "UserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.TeamResources", "TeamId", "dbo.Teams");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
-            DropForeignKey("dbo.TeamResources", "TeamId", "dbo.Teams");
+            DropForeignKey("dbo.Assignements", "ScheduleId", "dbo.Schedules");
             DropForeignKey("dbo.ActivityResources", "ActivityId", "dbo.Activities");
-            DropIndex("dbo.Assignements", new[] { "UserId" });
-            DropIndex("dbo.Assignements", new[] { "ScheduleId" });
-            DropIndex("dbo.ScheduleResources", new[] { "ScheduleId" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
+            DropIndex("dbo.TeamResources", new[] { "UserId" });
+            DropIndex("dbo.TeamResources", new[] { "TeamId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
-            DropIndex("dbo.TeamResources", new[] { "UserId" });
-            DropIndex("dbo.TeamResources", new[] { "TeamId" });
+            DropIndex("dbo.Assignements", new[] { "UserId" });
+            DropIndex("dbo.Assignements", new[] { "ScheduleId" });
+            DropIndex("dbo.ScheduleResources", new[] { "ScheduleId" });
             DropIndex("dbo.ActivityResources", new[] { "ActivityId" });
-            DropTable("dbo.Assignements");
-            DropTable("dbo.Schedules");
-            DropTable("dbo.ScheduleResources");
             DropTable("dbo.AspNetRoles");
+            DropTable("dbo.Teams");
+            DropTable("dbo.TeamResources");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
-            DropTable("dbo.TeamResources");
-            DropTable("dbo.Teams");
+            DropTable("dbo.Assignements");
+            DropTable("dbo.Schedules");
+            DropTable("dbo.ScheduleResources");
             DropTable("dbo.ActivityResources");
             DropTable("dbo.Activities");
         }

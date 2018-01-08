@@ -53,34 +53,35 @@ namespace Aruba.Eis.EntityFramework
                 .HasRequired<TeamEntity>(tr => tr.Team)
                 .WithMany(t => t.Resources)
                 .HasForeignKey<int>(tr => tr.TeamId)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
 
             // Add User-TeamResource One to many relationship
             modelBuilder.Entity<TeamResourceEntity>()
                 .HasRequired<ApplicationUser>(tr => tr.User)
                 .WithMany(u => u.TeamResources)
                 .HasForeignKey<string>(tr => tr.UserId)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
 
+            // Add Activity-ActivityResource One to many relationship
             modelBuilder.Entity<ActivityResourceEntity>()
                 .HasRequired<ActivityEntity>(ar => ar.Activity)
                 .WithMany(a => a.Resources)
                 .HasForeignKey<int>(ar => ar.ActivityId)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
             
             // Add Schedule-ScheduleResource One to many relationship
             modelBuilder.Entity<ScheduleResourceEntity>()
                 .HasRequired<ScheduleEntity>(sr => sr.Schedule)
                 .WithMany(s => s.Resources)
                 .HasForeignKey<int>(sr => sr.ScheduleId)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
 
             // Add Schedule-Assignment One to many relationship
             modelBuilder.Entity<AssignmentEntity>()
                 .HasRequired<ScheduleEntity>(a => a.Schedule)
                 .WithMany(s => s.Assignments)
                 .HasForeignKey<int>(a => a.ScheduleId)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
         }
 
         public override int SaveChanges()

@@ -115,11 +115,29 @@ namespace Aruba.Eis {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string DELETE {
+            get {
+                return ResourceManager.GetString("DELETE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete Activity.
         /// </summary>
         public static string DELETE_ACTIVITY {
             get {
                 return ResourceManager.GetString("DELETE_ACTIVITY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete Schedule.
+        /// </summary>
+        public static string DELETE_SCHEDULE {
+            get {
+                return ResourceManager.GetString("DELETE_SCHEDULE", resourceCulture);
             }
         }
         
