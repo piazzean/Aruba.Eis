@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -37,9 +38,76 @@ namespace Aruba.Eis.Services.Impl
             {
                 var ue = await dao.Find(id);
                 if (ue != null)
-                    return Mapper.Map<UserEntity, User>(ue);
+                {
+                    var user = Mapper.Map<UserEntity, User>(ue);
+                    user.Roles = await this.SearchRoles();
+                    foreach (var ir in ue.Roles)
+                    {
+                        var role = user.Roles.FirstOrDefault(r => r.Id.Equals(ir.RoleId));
+                        if (role != null)
+                        {
+                            role.Granted = true;
+                        }
+                    }
+                    return user;
+                }
                 else
                     throw EisException.RecordNotFound;
+            }
+        }
+        
+        /// <summary>
+        /// Create user on the DB
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public async Task Create(User user)
+        {
+            using (var dao = new UserDao())
+            {
+                var ue = Mapper.Map<User, UserEntity>(user);
+                await dao.Create(ue, user.Password);
+                foreach (var role in user.Roles)
+                {
+                    await dao.UserRoleUpdate(ue, role.Name, role.Granted);
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Save user to the DB
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public async Task Save(User user)
+        {
+            using (var dao = new UserDao())
+            {
+                var ue = await dao.Find(user.Id);
+                if (ue != null)
+                {
+                    Mapper.Map<User, UserEntity>(user, ue);
+                    foreach (var role in user.Roles)
+                    {
+                        await dao.UserRoleUpdate(ue, role.Name, role.Granted);
+                    }
+                    await dao.Update(ue);
+                }
+                else
+                    throw EisException.RecordNotFound;
+            }
+        }
+        
+        /// <summary>
+        /// Remove user by Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task Remove(string id)
+        {
+            using (var dao = new UserDao())
+            {
+                await dao.Remove(id);
             }
         }
         
@@ -89,7 +157,6 @@ namespace Aruba.Eis.Services.Impl
                 {
                     ir = Mapper.Map<Role, IdentityRole>(role);
                     await dao.CreateRole(ir);
-                    dao.CommitTransaction();
                 }
                 else
                     throw EisException.RecordAlreadyExists;
@@ -109,8 +176,6 @@ namespace Aruba.Eis.Services.Impl
                 if (ir != null)
                 {
                     Mapper.Map<Role, IdentityRole>(role, ir);
-                    await dao.SaveChanges();
-                    dao.CommitTransaction();
                 }
                 else
                     throw EisException.RecordNotFound;
@@ -127,7 +192,6 @@ namespace Aruba.Eis.Services.Impl
             using (var dao = new UserDao())
             {
                 await dao.RemoveRole(id);
-                dao.CommitTransaction();
             }
         }
     }

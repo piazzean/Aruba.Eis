@@ -8,17 +8,34 @@ using Microsoft.AspNet.Identity;
 using Aruba.Eis.Exceptions;
 using Aruba.Eis.Models.Entities;
 using Aruba.Eis.EntityFramework;
+using log4net;
 
 namespace Aruba.Eis.Dao
 {
-    public class UserDao : BaseDao
+    public class UserDao : IDisposable
     {
+        /// <summary>
+        /// Log manager
+        /// </summary>
+        protected static readonly ILog Log =
+            LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        
+        /// <summary>
+        /// Entity Framework Context
+        /// </summary>
+        protected ApplicationDbContext _ctx;
+        
+        private UserStore<UserEntity> _userStore;
+        private ApplicationUserManager _userMngr;
+        
         /// <summary>
         /// Class constructor
         /// </summary>
         public UserDao(string username = null)
-            : base(username)
         {
+            _ctx = new ApplicationDbContext(username);
+            _userStore = new UserStore<UserEntity>(_ctx);
+            _userMngr = new ApplicationUserManager(_userStore);
         }
 
         /// <summary>
@@ -30,11 +47,7 @@ namespace Aruba.Eis.Dao
         {
             try
             {
-                using (var userStore = new UserStore<UserEntity>(new ApplicationDbContext()))
-                using (var userMngr = new ApplicationUserManager(userStore))
-                {
-                    return await userMngr.Users.ToListAsync();
-                }
+                return await _userMngr.Users.ToListAsync();
             }
             catch (Exception e)
             {
@@ -52,12 +65,88 @@ namespace Aruba.Eis.Dao
         {
             try
             {
-                using (var userStore = new UserStore<UserEntity>(new ApplicationDbContext()))
-                using (var userMngr = new ApplicationUserManager(userStore))
-                {
-                    var query = userMngr.Users.Where(x => x.Id == id);
-                    return await query.FirstOrDefaultAsync();
-                }
+                var query = _userMngr.Users.Where(x => x.Id == id);
+                return await query.FirstOrDefaultAsync();
+            }
+            catch (Exception e)
+            {
+                Log.Error(EisException.RepositoryError.Message, e);
+                throw EisException.RepositoryError;
+            }
+        }
+        
+        /// <summary>
+        /// Create an user on the DB
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        public async Task Create(UserEntity user, string password)
+        {
+            try
+            {
+                await _userMngr.CreateAsync(user, password);
+            }
+            catch (Exception e)
+            {
+                Log.Error(EisException.RepositoryError.Message, e);
+                throw EisException.RepositoryError;
+            }
+        }
+    
+        /// <summary>
+        /// Update user
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public async Task Update(UserEntity user)
+        {
+            try
+            {
+                await _userMngr.UpdateAsync(user);
+            }
+            catch (Exception e)
+            {
+                Log.Error(EisException.RepositoryError.Message, e);
+                throw EisException.RepositoryError;
+            }
+        }
+        
+        /// <summary>
+        /// Update UserRole Relationship
+        /// </summary>
+        /// <param name="ue"></param>
+        /// <param name="role"></param>
+        /// <param name="granted"></param>
+        /// <returns></returns>
+        /// <exception cref="EisException"></exception>
+        public async Task UserRoleUpdate(UserEntity ue, string role, bool granted)
+        {
+            try
+            {
+                if (granted)
+                    await _userMngr.AddToRoleAsync(ue.Id, role);
+                else
+                    await _userMngr.RemoveFromRoleAsync(ue.Id, role);
+            }
+            catch (Exception e)
+            {
+                Log.Error(EisException.RepositoryError.Message, e);
+                throw EisException.RepositoryError;
+            }
+        }
+        
+        /// <summary>
+        /// Remove user by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task Remove(string id)
+        {
+            try
+            {
+                var user = await this.Find(id);
+                await _userMngr.DeleteAsync(user);
             }
             catch (Exception e)
             {
@@ -148,7 +237,6 @@ namespace Aruba.Eis.Dao
                     if (ir != null)
                     {
                         await roleStore.DeleteAsync(ir);
-                        await _ctx.SaveChangesAsync();
                     }
                 }
             }
@@ -157,6 +245,13 @@ namespace Aruba.Eis.Dao
                 Log.Error(EisException.RepositoryError.Message, e);
                 throw EisException.RepositoryError;
             }
+        }
+        
+        public void Dispose()
+        {
+            _ctx?.Dispose();
+            _userMngr?.Dispose();
+            _userStore?.Dispose();
         }
     }
 }

@@ -166,6 +166,5 @@ namespace Aruba.Eis.Controllers
             await ScheduleService.Remove(id);
             return RedirectToAction("Index", "Home");
         }
-
     }
 }

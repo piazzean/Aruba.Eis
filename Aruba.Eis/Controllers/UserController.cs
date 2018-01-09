@@ -87,16 +87,66 @@ namespace Aruba.Eis.Controllers
             if (id.Equals("0"))
             {
                 user = new User();
+                user.Id = "0";
+                user.Roles = await UserService.SearchRoles();
             }
             else
             {
                 user = await UserService.Find(id);
-                user.Roles.Add(new Role(){Id="AU", Name="AU Role", Granted=false});
-                user.Roles.Add(new Role(){Id="SC", Name="SC Role", Granted=true});
             }
             
             return View(user);
         }
+        
+        //
+        // POST: /Schedule/Edit
+        //
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Edit(User user)
+        {
+            if (ModelState.IsValid)
+            {
+                if (user.Id.Equals("0"))
+                {
+                    user.Id = Guid.NewGuid().ToString();
+                    await UserService.Create(user);
+                }
+                else
+                {
+                    await UserService.Save(user);
+                }
+                return RedirectToAction("Index");
+            }
+            return View(user);
+        }
 
+        //
+        // GET: /User/Delete/5
+        //
+        public async Task<ActionResult> Delete(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var user = await UserService.Find(id);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            return View(user);
+        }
+
+        //
+        // POST: /User/Delete/5
+        //
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> DeleteConfirmed(string id)
+        {
+            await UserService.Remove(id);
+            return RedirectToAction("Index");
+        }
     }
 }

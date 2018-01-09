@@ -13,8 +13,10 @@ namespace Aruba.Eis.Automapper
     {
         public EisMapperProfile()
         {
-            CreateMap<UserEntity, User>();
-            CreateMap<User, UserEntity>();
+            CreateMap<UserEntity, User>()
+                .ForMember(dest => dest.Roles, opt => opt.Ignore());
+            CreateMap<User, UserEntity>()
+                .ForMember(dest => dest.Roles, opt => opt.Ignore());
 
             CreateMap<ActivityEntity, Activity>();
             CreateMap<Activity, ActivityEntity>()

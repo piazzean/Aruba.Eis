@@ -147,6 +147,9 @@
   <data name="DELETE_SCHEDULE" xml:space="preserve">
     <value>Delete Schedule</value>
   </data>
+  <data name="DELETE_USER" xml:space="preserve">
+    <value>Delete User</value>
+  </data>
   <data name="EDIT" xml:space="preserve">
     <value>Edit</value>
   </data>

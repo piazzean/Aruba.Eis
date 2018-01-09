@@ -151,6 +151,15 @@ namespace Aruba.Eis {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete User.
+        /// </summary>
+        public static string DELETE_USER {
+            get {
+                return ResourceManager.GetString("DELETE_USER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit.
         /// </summary>
         public static string EDIT {
