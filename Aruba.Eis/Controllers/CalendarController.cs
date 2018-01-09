@@ -37,10 +37,20 @@ namespace Aruba.Eis.Controllers
             
             foreach (var schedule in schedules)
             {
+                var text = schedule.Name + "<br/><br/>";
+                text += "AU:"+
+                        " <span class='glyphicon glyphicon-check' aria-hidden='true'></span>"+
+                        "<br/>";
+                text += "SC:" + 
+                        " <span class='glyphicon glyphicon-check' aria-hidden='true'></span>"+
+                        " <span class='glyphicon glyphicon-unchecked' aria-hidden='true'></span>"+
+                        " <span class='glyphicon glyphicon-unchecked' aria-hidden='true'></span>"+
+                        "<br/>";
+                
                 var e = new ScheduleEvent()
                 {
                     id = schedule.Id,
-                    title = schedule.Name,
+                    title = text, 
                     start = schedule.StartDateTime.ToString(@"yyyy-MM-dd HH:mm"),
                     end = schedule.EndDateTime.ToString(@"yyyy-MM-dd HH:mm"),
                     color = "#ff0000",

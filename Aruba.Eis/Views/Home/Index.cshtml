@@ -35,12 +35,19 @@
                         center: 'title',
                         right: 'month,agendaWeek,agendaDay'
                     },
-                    defaultView: 'agendaWeek',
+                    windowResize: function(view) {
+                        if ($(window).width() < 1024) {
+                            $('#calendar').fullCalendar('changeView', 'agendaDay');
+                        } else {
+                            $('#calendar').fullCalendar('changeView', 'agendaWeek');
+                        }   
+                    },
+                    defaultView: $(window).width() < 1024 ? 'agendaDay' : 'agendaWeek',
                     editable: true,
                     allDaySlot: false,
                     selectable: true,
-                    slotMinutes: 15,
-                    contentHeight: 550,
+                    height: 'auto',
+                    timeFormat: 'H:mm',
                     firstDay: 1,
                     views: {
                         basic: {
@@ -50,15 +57,18 @@
                         agenda: {
                             // options apply to agendaWeek and agendaDay views
                             slotDuration: '01:00:00',
-                            slotLabelFormat: 'H(:mm)'
+                            slotLabelFormat: 'H(:mm)',
+                            slotLabelInterval: '02:00:00'
+                            
                         },
                         week: {
                             // options apply to basicWeek and agendaWeek views
-                        
+                            titleFormat: 'DD MMMM YYYY',
+                            columnFormat: 'ddd D/M'
                         },
                         day: {
                             // options apply to basicDay and agendaDay views
-                        
+                            titleFormat: 'DD MMM YYYY'
                         }
                     },
                     eventSources: [
@@ -72,6 +82,14 @@
                     },
                     select: function(startDate, endDate, allDay, jsEvent, view) {
                         //common.setStartEndDate(startDate, endDate);
+                    },
+                    monthNames: ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'],
+                    monthNamesShort: ['Gen', 'Feb', 'Mar', 'Apr', 'Mag', 'Giu', 'Lug', 'Ago', 'Set', 'Ott', 'Nov', 'Dic'],
+                    dayNames: ['Domenica','Lunedi','Martedi','Mercoledi','Giovedi','Venerdi','Sabato'],
+                    dayNamesShort: ['Dom','Lun','Mar','Mer','Gio','Ven','Sab'],
+                    eventRender: function(event, element) {
+                        var content = element.find('div.fc-title').text();
+                        element.find('div.fc-title').html(content);
                     }
                 });
             }
