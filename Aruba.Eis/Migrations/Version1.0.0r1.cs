@@ -97,7 +97,10 @@ namespace Aruba.Eis.Migrations
                 c => new
                     {
                         Id = c.String(nullable: false, maxLength: 128),
-                        Hometown = c.String(),
+                        Name = c.String(),
+                        Address = c.String(),
+                        ZipCode = c.String(),
+                        City = c.String(),
                         Email = c.String(maxLength: 256),
                         EmailConfirmed = c.Boolean(nullable: false),
                         PasswordHash = c.String(),

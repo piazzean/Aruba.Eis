@@ -63,4 +63,5 @@ window.common = (function () {
     };
 
     return common;
+    
 })();

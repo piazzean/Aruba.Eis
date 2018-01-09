@@ -13,5 +13,7 @@ namespace Aruba.Eis.Models.Bl
 
         [Required]
         public string Name { get; set; }
+        
+        public bool Granted { get; set; }
     }
 }

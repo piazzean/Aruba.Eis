@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Aruba.Eis.Models;
+using Aruba.Eis.Models.Entities;
 
 namespace Aruba.Eis.Controllers
 {
@@ -165,7 +166,7 @@ namespace Aruba.Eis.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, Hometown = model.Hometown };
+                var user = new UserEntity { UserName = model.Email, Email = model.Email, Name = model.Name };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -381,7 +382,7 @@ namespace Aruba.Eis.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, Hometown = model.Hometown };
+                var user = new UserEntity { UserName = model.Email, Email = model.Email, Name = model.Name };
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {

@@ -1,19 +1,48 @@
-﻿using Aruba.Eis.Dao;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using AutoMapper;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Aruba.Eis.Dao;
 using Aruba.Eis.Exceptions;
 using Aruba.Eis.Models.Bl;
 using Aruba.Eis.Models.Entities;
-using AutoMapper;
-using Microsoft.AspNet.Identity.EntityFramework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
 
 namespace Aruba.Eis.Services.Impl
 {
     public class UserService : IUserService
     {
+        /// <summary>
+        /// Search users by filter
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <returns></returns>
+        public async Task<IList<User>> Search(string filter = null)
+        {
+            using (var dao = new UserDao())
+            {
+                var ueList = await dao.Search(filter);
+                var uList = Mapper.Map<IList<UserEntity>,IList<User>>(ueList);
+                return uList;
+            }
+        }
+        
+        /// <summary>
+        /// Find user by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<User> Find(string id)
+        {
+            using (var dao = new UserDao())
+            {
+                var ue = await dao.Find(id);
+                if (ue != null)
+                    return Mapper.Map<UserEntity, User>(ue);
+                else
+                    throw EisException.RecordNotFound;
+            }
+        }
+        
         /// <summary>
         /// Search roles by filter
         /// </summary>

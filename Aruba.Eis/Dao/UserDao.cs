@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
-using Aruba.Eis.Exceptions;
-using Aruba.Eis.Models.Entities;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity;
+using Aruba.Eis.Exceptions;
+using Aruba.Eis.Models.Entities;
+using Aruba.Eis.EntityFramework;
 
 namespace Aruba.Eis.Dao
 {
@@ -18,6 +19,51 @@ namespace Aruba.Eis.Dao
         public UserDao(string username = null)
             : base(username)
         {
+        }
+
+        /// <summary>
+        /// Search Users from DB
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <returns></returns>
+        public async Task<List<UserEntity>> Search(string filter = null)
+        {
+            try
+            {
+                using (var userStore = new UserStore<UserEntity>(new ApplicationDbContext()))
+                using (var userMngr = new ApplicationUserManager(userStore))
+                {
+                    return await userMngr.Users.ToListAsync();
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error(EisException.RepositoryError.Message, e);
+                throw EisException.RepositoryError;
+            }
+        }
+        
+        /// <summary>
+        /// Find user by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<UserEntity> Find(string id)
+        {
+            try
+            {
+                using (var userStore = new UserStore<UserEntity>(new ApplicationDbContext()))
+                using (var userMngr = new ApplicationUserManager(userStore))
+                {
+                    var query = userMngr.Users.Where(x => x.Id == id);
+                    return await query.FirstOrDefaultAsync();
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error(EisException.RepositoryError.Message, e);
+                throw EisException.RepositoryError;
+            }
         }
 
         /// <summary>

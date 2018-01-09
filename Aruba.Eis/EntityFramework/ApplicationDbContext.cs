@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Aruba.Eis.EntityFramework
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class ApplicationDbContext : IdentityDbContext<UserEntity>
     {
         private string _username;
 
@@ -57,7 +57,7 @@ namespace Aruba.Eis.EntityFramework
 
             // Add User-TeamResource One to many relationship
             modelBuilder.Entity<TeamResourceEntity>()
-                .HasRequired<ApplicationUser>(tr => tr.User)
+                .HasRequired<UserEntity>(tr => tr.User)
                 .WithMany(u => u.TeamResources)
                 .HasForeignKey<string>(tr => tr.UserId)
                 .WillCascadeOnDelete(true);

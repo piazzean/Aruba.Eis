@@ -1,4 +1,6 @@
-﻿namespace Aruba.Eis.Models.Bl
+﻿using Aruba.Eis.Models.Entities;
+
+namespace Aruba.Eis.Models.Bl
 {
     public class Assignment
     {
@@ -10,7 +12,7 @@
 
         public string UserId { get; set; }
 
-        public ApplicationUser User { get; set; }
+        public UserEntity User { get; set; }
 
         public string RoleId { get; set; }
     }

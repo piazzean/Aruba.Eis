@@ -156,6 +156,12 @@
   <data name="EDIT_ROLE" xml:space="preserve">
     <value>Edit Role</value>
   </data>
+  <data name="EDIT_USER" xml:space="preserve">
+    <value>Edit User</value>
+  </data>
+  <data name="EMAIL" xml:space="preserve">
+    <value>Email</value>
+  </data>
   <data name="FILTER" xml:space="preserve">
     <value>Filter</value>
   </data>
@@ -180,6 +186,9 @@
   <data name="NEXT" xml:space="preserve">
     <value>Next</value>
   </data>
+  <data name="PHONE_NUMBER" xml:space="preserve">
+    <value>Phone Number</value>
+  </data>
   <data name="ROLE" xml:space="preserve">
     <value>Role</value>
   </data>
@@ -197,6 +206,12 @@
   </data>
   <data name="TEAMS" xml:space="preserve">
     <value>Teams</value>
+  </data>
+  <data name="USER" xml:space="preserve">
+    <value>User</value>
+  </data>
+  <data name="USERNAME" xml:space="preserve">
+    <value>User Name</value>
   </data>
   <data name="USERS" xml:space="preserve">
     <value>Users</value>

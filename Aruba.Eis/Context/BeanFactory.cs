@@ -18,6 +18,7 @@ using SimpleInjector.Integration.Web.Mvc;
 using System.Web.Mvc;
 using System.Web.Http;
 using Aruba.Eis.EntityFramework;
+using Aruba.Eis.Models.Entities;
 using Owin;
 
 namespace Aruba.Eis.Context
@@ -48,8 +49,8 @@ namespace Aruba.Eis.Context
 
                 // IoC for ASP.NET Identity
                 _container.RegisterSingleton<IAppBuilder>(app);
-                _container.Register<IUserStore<ApplicationUser>>(
-                    () => new UserStore<ApplicationUser>(
+                _container.Register<IUserStore<UserEntity>>(
+                    () => new UserStore<UserEntity>(
                         _container.GetInstance<ApplicationDbContext>()),
                     Lifestyle.Scoped);
                 _container.Register<ApplicationUserManager>(Lifestyle.Scoped);

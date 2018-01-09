@@ -10,6 +10,7 @@ using Owin;
 using Aruba.Eis.Models;
 using Aruba.Eis.Providers;
 using Aruba.Eis.EntityFramework;
+using Aruba.Eis.Models.Entities;
 
 namespace Aruba.Eis
 {
@@ -51,7 +52,7 @@ namespace Aruba.Eis
                 {
                     // Enables the application to validate the security stamp when the user logs in.
                     // This is a security feature which is used when you change a password or add an external login to your account.  
-                    OnValidateIdentity = SecurityStampValidator.OnValidateIdentity<ApplicationUserManager, ApplicationUser>(
+                    OnValidateIdentity = SecurityStampValidator.OnValidateIdentity<ApplicationUserManager, UserEntity>(
                         validateInterval: TimeSpan.FromMinutes(20),
                         regenerateIdentity: (manager, user) => user.GenerateUserIdentityAsync(manager))
                 }

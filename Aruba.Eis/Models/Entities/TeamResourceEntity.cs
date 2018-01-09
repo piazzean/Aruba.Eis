@@ -15,6 +15,6 @@ namespace Aruba.Eis.Models.Entities
 
         public string UserId { get; set; }
 
-        public ApplicationUser User { get; set; }
+        public UserEntity User { get; set; }
     }
 }

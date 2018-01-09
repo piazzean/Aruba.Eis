@@ -1,14 +1,25 @@
-﻿using Aruba.Eis.Models.Bl;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Aruba.Eis.Models.Bl;
 
 namespace Aruba.Eis.Services
 {
     public interface IUserService
     {
+        /// <summary>
+        /// Search Users by filter
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <returns></returns>
+        Task<IList<User>> Search(string filter = null);
+
+        /// <summary>
+        /// Find user by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<User> Find(string id);
+        
         /// <summary>
         /// Search Roles by filter
         /// </summary>

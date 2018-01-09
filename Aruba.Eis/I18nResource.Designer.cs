@@ -133,20 +133,20 @@ namespace Aruba.Eis {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Delete Schedule.
-        /// </summary>
-        public static string DELETE_SCHEDULE {
-            get {
-                return ResourceManager.GetString("DELETE_SCHEDULE", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Delete Role.
         /// </summary>
         public static string DELETE_ROLE {
             get {
                 return ResourceManager.GetString("DELETE_ROLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete Schedule.
+        /// </summary>
+        public static string DELETE_SCHEDULE {
+            get {
+                return ResourceManager.GetString("DELETE_SCHEDULE", resourceCulture);
             }
         }
         
@@ -174,6 +174,24 @@ namespace Aruba.Eis {
         public static string EDIT_ROLE {
             get {
                 return ResourceManager.GetString("EDIT_ROLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit User.
+        /// </summary>
+        public static string EDIT_USER {
+            get {
+                return ResourceManager.GetString("EDIT_USER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email.
+        /// </summary>
+        public static string EMAIL {
+            get {
+                return ResourceManager.GetString("EMAIL", resourceCulture);
             }
         }
         
@@ -250,6 +268,15 @@ namespace Aruba.Eis {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Phone Number.
+        /// </summary>
+        public static string PHONE_NUMBER {
+            get {
+                return ResourceManager.GetString("PHONE_NUMBER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Role.
         /// </summary>
         public static string ROLE {
@@ -300,6 +327,24 @@ namespace Aruba.Eis {
         public static string TEAMS {
             get {
                 return ResourceManager.GetString("TEAMS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User.
+        /// </summary>
+        public static string USER {
+            get {
+                return ResourceManager.GetString("USER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User Name.
+        /// </summary>
+        public static string USERNAME {
+            get {
+                return ResourceManager.GetString("USERNAME", resourceCulture);
             }
         }
         

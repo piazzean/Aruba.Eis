@@ -16,7 +16,7 @@ namespace Aruba.Eis.Models.Entities
         public string UserId { get; set; }
 
         [ForeignKey("UserId")]
-        public ApplicationUser User { get; set; }
+        public UserEntity User { get; set; }
 
         public string RoleId { get; set; }
     }
