@@ -17,7 +17,7 @@ using Aruba.Eis.Helpers;
 
 namespace Aruba.Eis.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = Role.Manager)]
     public class ActivityController : Controller
     {
         /// <summary>

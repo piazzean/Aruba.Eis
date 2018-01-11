@@ -1,19 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using Aruba.Eis.EntityFramework;
-using Aruba.Eis.Models.Entities;
-using Aruba.Eis.Models.Views;
+using Microsoft.AspNet.Identity;
 using log4net;
 using Aruba.Eis.Services;
 using Aruba.Eis.Models.Bl;
 using Aruba.Eis.Helpers;
+using Aruba.Eis.Models.Views;
 
 namespace Aruba.Eis.Controllers
 {
@@ -31,15 +26,17 @@ namespace Aruba.Eis.Controllers
         /// </summary>
         private IActivityService ActivityService { get; set; }
         private IScheduleService ScheduleService { get; set; }
+        private ApplicationUserManager UserManager { get; set; }
 
         /// <summary>
         /// Team Controller constructor
         /// </summary>
-        public ScheduleController(IActivityService activityService, IScheduleService scheduleService)
+        public ScheduleController(IActivityService activityService, IScheduleService scheduleService, ApplicationUserManager userManager)
         {
             // DI
             ActivityService = activityService;
             ScheduleService = scheduleService;
+            UserManager = userManager;
         }
 
         //
@@ -91,6 +88,7 @@ namespace Aruba.Eis.Controllers
                 schedule.StartDateTime = DateTime.Now;
                 schedule.EndDateTime = DateTime.Now;
                 schedule.Resources = new List<ScheduleResource>();
+                schedule.Assignments = new List<Assignment>();
                 foreach (var actres in activity.Resources)
                 {
                     var schres = new ScheduleResource()
@@ -165,6 +163,46 @@ namespace Aruba.Eis.Controllers
         {
             await ScheduleService.Remove(id);
             return RedirectToAction("Index", "Home");
+        }
+
+        //
+        // GET: /Schedule/Assign/5
+        //
+        public async Task<ActionResult> Assign(int? id, int? scheduleId)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Assignment assignment;
+            if (id == 0)
+            {
+                var schedule = await ScheduleService.Find(scheduleId);
+                if (schedule == null)
+                {
+                    return HttpNotFound();
+                }
+                assignment = new Assignment();
+                assignment.Schedule = schedule;
+            }
+            else
+            {
+                assignment = await ScheduleService.FindAssignment(id);
+            }
+            return View(assignment);
+        }
+
+        //
+        // POST: /Schedule/Assign/5
+        //
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Assign(Assignment assignment)
+        {
+            var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+            assignment.UserId = user.Id;
+            await ScheduleService.CreateAssignment(assignment);
+            return RedirectToAction("Details", "Schedule", new { id = assignment.ScheduleId });
         }
     }
 }

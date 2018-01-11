@@ -25,6 +25,11 @@ namespace Aruba.Eis.Dao
         /// </summary>
         protected ApplicationDbContext _ctx;
         
+        /// <summary>
+        /// DB Transaction
+        /// </summary>
+        protected DbContextTransaction _tx;
+        
         private UserStore<UserEntity> _userStore;
         private ApplicationUserManager _userMngr;
         
@@ -36,6 +41,7 @@ namespace Aruba.Eis.Dao
             _ctx = new ApplicationDbContext(username);
             _userStore = new UserStore<UserEntity>(_ctx);
             _userMngr = new ApplicationUserManager(_userStore);
+            _tx = _ctx.Database.BeginTransaction();
         }
 
         /// <summary>
@@ -85,7 +91,7 @@ namespace Aruba.Eis.Dao
         {
             try
             {
-                await _userMngr.CreateAsync(user, password);
+               await _userMngr.CreateAsync(user, password);
             }
             catch (Exception e)
             {
@@ -247,11 +253,32 @@ namespace Aruba.Eis.Dao
             }
         }
         
+        /// <summary>
+        /// Commit the transaction
+        /// </summary>
+        /// <returns>The transaction object created</returns>
+        public void CommitTransaction()
+        {
+            try
+            {
+                _tx.Commit();
+            }
+            catch (Exception e)
+            {
+                Log.Error(EisException.RepositoryError.Message, e);
+                throw EisException.RepositoryError;
+            }
+        }
+        
+        /// <summary>
+        /// Dispose objects
+        /// </summary>
         public void Dispose()
         {
-            _ctx?.Dispose();
+            _tx?.Dispose();
             _userMngr?.Dispose();
             _userStore?.Dispose();
+            _ctx?.Dispose();
         }
     }
 }

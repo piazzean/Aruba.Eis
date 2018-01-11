@@ -13,6 +13,19 @@ namespace Aruba.Eis.Services.Impl
 {
     public class ScheduleService : IScheduleService
     {
+        /// Dependencies
+        private IUserService UserService { get; set; }
+
+        /// <summary>
+        /// Object Constructor
+        /// </summary>
+        /// <param name="userService"></param>
+        public ScheduleService(IUserService userService)
+        {
+            // DI
+            UserService = userService;
+        }
+
         /// <summary>
         /// Search schedules between start and end
         /// </summary>
@@ -40,7 +53,14 @@ namespace Aruba.Eis.Services.Impl
             {
                 var se = await dao.Find(id);
                 if (se != null)
-                    return Mapper.Map<ScheduleEntity, Schedule>(se);
+                {
+                    var schedule = Mapper.Map<ScheduleEntity, Schedule>(se);
+                    foreach (var assignment in schedule.Assignments)
+                    {
+                        assignment.User = await UserService.Find(assignment.UserId);
+                    }
+                    return schedule;
+                }
                 else
                     throw EisException.RecordNotFound;
             }
@@ -125,6 +145,42 @@ namespace Aruba.Eis.Services.Impl
             using (var dao = new ScheduleDao())
             {
                 await dao.Remove(id);
+                dao.CommitTransaction();
+            }
+        }
+
+        /// <summary>
+        /// Find assignment by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<Assignment> FindAssignment(int? id)
+        {
+            using (var dao = new ScheduleDao())
+            {
+                var se = await dao.FindAssignment(id);
+                if (se != null)
+                    return Mapper.Map<AssignmentEntity, Assignment>(se);
+                else
+                    throw EisException.RecordNotFound;
+            }
+        }
+
+        /// <summary>
+        /// Create an assignment on the DB
+        /// </summary>
+        /// <param name="schedule"></param>
+        /// <returns></returns>
+        public async Task CreateAssignment(Assignment assignment)
+        {
+            using (var dao = new ScheduleDao())
+            using (var userDao = new UserDao())
+            {
+                var ae = Mapper.Map<Assignment, AssignmentEntity>(assignment);
+                // ae.Schedule = await dao.Find(ae.ScheduleId);
+                // ae.User = await userDao.Find(ae.UserId);
+
+                await dao.CreateAssignment(ae);
                 dao.CommitTransaction();
             }
         }

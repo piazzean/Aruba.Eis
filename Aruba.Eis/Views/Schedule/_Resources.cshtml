@@ -2,6 +2,7 @@
 
 @using HtmlHelpers.BeginCollectionItem
 @using Aruba.Eis.Helpers
+@using Aruba.Eis.Models.Bl
 
 @{
     var roles = HtmlItems.RoleListItems;
@@ -10,22 +11,39 @@
 <tr>
     @using (Html.BeginCollectionItem("Resources"))
     {
-        @Html.HiddenFor(m => m.Id)
-        <td>
-            @Html.DropDownListFor(m => m.RoleId, roles, "-- Select Role --", new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.RoleId, "", new { @class = "text-danger" })
-        </td>
-        <td>
-            @Html.TextBox("MinOccurs", @Model.MinOccurs, new { @class = "form-control", size = "5" })
-            @Html.ValidationMessageFor(model => model.MinOccurs, "", new { @class = "text-danger" })
-        </td>
-        <td>
-            @Html.TextBox("MaxOccurs", @Model.MaxOccurs, new { @class = "form-control", size = "5" })
-            @Html.ValidationMessageFor(model => model.MaxOccurs, "", new { @class = "text-danger" })
-        </td>
-        <td>
-            <input type="button" value="Delete" class="btn btn-default"
-                   onclick="$(this).parent().parent().remove();" />
-        </td>
+        if (User.IsInRole(Role.Manager))
+        {
+            @Html.HiddenFor(m => m.Id)
+            <td>
+                @Html.DropDownListFor(m => m.RoleId, roles, "-- Select Role --", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.RoleId, "", new { @class = "text-danger" })
+            </td>
+            <td>
+                @Html.TextBox("MinOccurs", @Model.MinOccurs, new { @class = "form-control", size = "5"})
+                @Html.ValidationMessageFor(model => model.MinOccurs, "", new { @class = "text-danger" })
+            </td>
+            <td>
+                @Html.TextBox("MaxOccurs", @Model.MaxOccurs, new { @class = "form-control", size = "5"})
+                @Html.ValidationMessageFor(model => model.MaxOccurs, "", new { @class = "text-danger" })
+            </td>
+            <td>
+                <input type="button" value="Delete" class="btn btn-default"
+                       onclick="$(this).parent().parent().remove();" />
+            </td>
+        }
+        else
+        {
+            <td>
+                @Html.DisplayFor(m => m.RoleId)
+            </td>
+            <td>
+                @Html.DisplayFor(m => m.MinOccurs)
+            </td>
+            <td>
+                @Html.DisplayFor(m => m.MaxOccurs)
+            </td>
+            <td>
+            </td>
+        }
     }
 </tr>

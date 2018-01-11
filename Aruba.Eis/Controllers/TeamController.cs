@@ -1,4 +1,5 @@
-﻿using Aruba.Eis.Models.Views;
+﻿using Aruba.Eis.Models.Bl;
+using Aruba.Eis.Models.Views;
 using Aruba.Eis.Services;
 using log4net;
 using System;
@@ -9,7 +10,7 @@ using System.Web.Mvc;
 
 namespace Aruba.Eis.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = Role.Admin)]
     public class TeamController : Controller
     {
         /// <summary>

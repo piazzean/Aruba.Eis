@@ -1,0 +1,70 @@
+﻿@model Aruba.Eis.Models.Bl.Assignment
+
+@using Aruba.Eis
+@using Aruba.Eis.Helpers
+
+@{
+    ViewBag.Title = I18nResource.ASSIGNMENT;
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Schedule.Code)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Schedule.Code)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Schedule.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Schedule.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Schedule.StartDateString)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Schedule.StartDateString)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Schedule.EndDateString)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Schedule.EndDateString)
+        </dd>
+
+    </dl>
+
+    @{
+        var roles = HtmlItems.RoleListItems;
+    }
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <h3>Confirm Assignment</h3>
+
+        <div class="form-group">
+            @Html.DropDownListFor(m => m.RoleId, roles, "-- Select Role --", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.RoleId, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-actions no-color">
+            <input type="submit" value="@I18nResource.YES" class="btn btn-warning" />
+            @Html.ActionLink(I18nResource.NO, "Index", "Home", null, new { @class = "btn btn-default" })
+        </div>
+    }
+</div>
+

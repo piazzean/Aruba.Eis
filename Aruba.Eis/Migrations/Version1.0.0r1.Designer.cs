@@ -13,7 +13,7 @@ namespace Aruba.Eis.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201801081637265_Version1.0.0r1"; }
+            get { return "201801101557523_Version1.0.0r1"; }
         }
         
         string IMigrationMetadata.Source

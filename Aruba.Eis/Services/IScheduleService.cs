@@ -44,5 +44,19 @@ namespace Aruba.Eis.Services
         /// <param name="id"></param>
         /// <returns></returns>
         Task Remove(int id);
+
+        /// <summary>
+        /// Find assignment by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<Assignment> FindAssignment(int? id);
+
+        /// <summary>
+        /// Create assignment on the DB
+        /// </summary>
+        /// <param name="schedule"></param>
+        /// <returns></returns>
+        Task CreateAssignment(Assignment assignment);
     }
 }

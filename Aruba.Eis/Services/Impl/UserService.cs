@@ -71,6 +71,7 @@ namespace Aruba.Eis.Services.Impl
                 {
                     await dao.UserRoleUpdate(ue, role.Name, role.Granted);
                 }
+                dao.CommitTransaction();
             }
         }
         
@@ -92,6 +93,7 @@ namespace Aruba.Eis.Services.Impl
                         await dao.UserRoleUpdate(ue, role.Name, role.Granted);
                     }
                     await dao.Update(ue);
+                    dao.CommitTransaction();
                 }
                 else
                     throw EisException.RecordNotFound;
@@ -108,6 +110,7 @@ namespace Aruba.Eis.Services.Impl
             using (var dao = new UserDao())
             {
                 await dao.Remove(id);
+                dao.CommitTransaction();
             }
         }
         
@@ -157,6 +160,7 @@ namespace Aruba.Eis.Services.Impl
                 {
                     ir = Mapper.Map<Role, IdentityRole>(role);
                     await dao.CreateRole(ir);
+                    dao.CommitTransaction();
                 }
                 else
                     throw EisException.RecordAlreadyExists;
@@ -176,6 +180,8 @@ namespace Aruba.Eis.Services.Impl
                 if (ir != null)
                 {
                     Mapper.Map<Role, IdentityRole>(role, ir);
+                    // TODO: Update Role
+                    dao.CommitTransaction();
                 }
                 else
                     throw EisException.RecordNotFound;
@@ -192,6 +198,7 @@ namespace Aruba.Eis.Services.Impl
             using (var dao = new UserDao())
             {
                 await dao.RemoveRole(id);
+                dao.CommitTransaction();
             }
         }
     }

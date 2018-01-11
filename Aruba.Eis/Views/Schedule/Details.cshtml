@@ -1,5 +1,6 @@
 ﻿@model Aruba.Eis.Models.Bl.Schedule
 
+@using Aruba.Eis.Models.Bl
 @using Aruba.MvcToolkit.Html
 
 @{
@@ -14,28 +15,30 @@
     {
         @Html.AntiForgeryToken()
 
-        <div class="form-horizontal">
-            <hr/>
-            @Html.ValidationSummary(true, "", new {@class = "text-danger"})
-            @Html.HiddenFor(model => model.Id)
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.Code, htmlAttributes: new {@class = "control-label col-md-2"})
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Code, new {htmlAttributes = new {@class = "form-control", @readonly = "readonly"}})
-                </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
             </div>
+        </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.Name, htmlAttributes: new {@class = "control-label col-md-2"})
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Name, new {htmlAttributes = new {@class = "form-control", @readonly = "readonly"}})
-                </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
             </div>
+        </div>
 
-            <div class="form-group">
-                @Html.Label("Start Date", new {@class = "control-label col-md-2"})
-                <div class="col-md-10">
+        <div class="form-group">
+            @Html.Label("Start Date", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @if (User.IsInRole(Role.Manager))
+                {
                     <div class='input-group datepicker'>
                         <span class="input-group-addon">
                             <span class="glyphicon glyphicon-calendar"></span>
@@ -43,12 +46,19 @@
                         @Html.EditorFor(model => model.StartDateString, new {htmlAttributes = new {@class = "form-control"}})
                     </div>
                     @Html.ValidationMessageFor(model => model.StartDateString, "", new {@class = "text-danger"})
-                </div>
+                }
+                else
+                {
+                    <p class="form-control-static">@Html.DisplayFor(model => model.StartDateString)</p>
+                }
             </div>
+        </div>
 
-            <div class="form-group">
-                @Html.Label("End Date", new {@class = "control-label col-md-2"})
-                <div class="col-md-10">
+        <div class="form-group">
+            @Html.Label("End Date", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @if (User.IsInRole(Role.Manager))
+                {
                     <div class='input-group datepicker'>
                         <span class="input-group-addon">
                             <span class="glyphicon glyphicon-calendar"></span>
@@ -56,31 +66,66 @@
                         @Html.EditorFor(model => model.EndDateString, new {htmlAttributes = new {@class = "form-control"}})
                     </div>
                     @Html.ValidationMessageFor(model => model.EndDateString, "", new {@class = "text-danger"})
-                </div>
+                }
+                else
+                {
+                    <p class="form-control-static">@Html.DisplayFor(model => model.EndDateString)</p>
+                }
             </div>
+        </div>
 
+        @if (User.IsInRole(Role.Manager))
+        {
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="@I18nResource.SAVE" class="btn btn-warning"/>
-                    @Html.ActionLink(I18nResource.CANCEL, "Index", "Home", null, new {@class = "btn btn-default"})
-                    @Html.ActionLink(I18nResource.DELETE, "Delete", new {id = Model.Id}, new { @class = "btn btn-default"})
+                    <input type="submit" value="@I18nResource.SAVE" class="btn btn-warning" />
+                    @Html.ActionLink(I18nResource.CANCEL, "Index", "Home", null, new { @class = "btn btn-default" })
+                    @Html.ActionLink(I18nResource.DELETE, "Delete", new { id = Model.Id }, new { @class = "btn btn-default" })
                 </div>
             </div>
+        }
 
-            <table id="Resources" class="table">
-                <thead>
+        <p><b>@I18nResource.PLANNED_RESOURCES</b></p>
+        <table id="PlannedResources" class="table">
+            <thead>
                 <tr>
                     <th>Role</th>
                     <th>MinOccurs</th>
                     <th>MaxOccurs</th>
                     <th></th>
                 </tr>
-                </thead>
-                @Html.CollectionEditorFor(m => m.Resources, "_Resources", "/Schedule/AddResource",
-                    "Add Resource", new {@class = "btn btn-default"})
-            </table>
+            </thead>
+            @Html.CollectionEditorFor(m => m.Resources, "_Resources", "/Schedule/AddResource",
+                   "Add Resource", new { @class = "btn btn-default", @style = User.IsInRole(Role.Manager) ? "" : "display:none" })
+        </table>
 
-        </div>
+        <p><b>@I18nResource.ASSIGNMENTS</b></p>
+        <table id="Assignments" class="table">
+            <thead>
+                <tr>
+                    <th>User</th>
+                    <th>Role</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var assignment in Model.Assignments)
+                {
+                    <tr>
+                        <td>
+                            <span>@assignment.User.Name</span>
+                        </td>
+                        <td>
+                            <span>@assignment.RoleId</span>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        @Html.ActionLink(I18nResource.ASSIGN, "Assign", new { id = 0, scheduleId = Model.Id }, new { @class = "btn btn-warning" })
+
+    </div>
 
     }
 }
@@ -96,8 +141,7 @@
             $('.datepicker').datetimepicker({
                 sideBySide: true,
                 format: 'DD/MM/YYYY HH:mm',
-                stepping: 30,
-                ignoreReadonly: true
+                stepping: 30
             });        
         });
     

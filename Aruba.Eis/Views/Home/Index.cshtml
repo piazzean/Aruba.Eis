@@ -1,22 +1,36 @@
-﻿@Styles.Render("~/Content/fullcalendar")
+﻿@using Aruba.Eis.Models.Bl
+
+@Styles.Render("~/Content/fullcalendar")
 
 @section Content {
 
     <p></p>
-    
-    <div id='calendar' style="width:100%"></div> 
+
+    <div id='calendar' style="width:100%"></div>
 }
 @section Scripts {
-    @* 
-    @Scripts.Render("~/bundles/knockout")
-    @Scripts.Render("~/bundles/app")
+    @*
+        @Scripts.Render("~/bundles/knockout")
+        @Scripts.Render("~/bundles/app")
     *@
 
     @Scripts.Render("~/bundles/app")
     @Scripts.Render("~/bundles/fullcalendar")
 
+    @{
+        string leftButtons;
+        if (User.IsInRole(Role.Manager))
+        {
+            leftButtons = "prev,next today addScheduleButton";
+        }
+        else
+        {
+            leftButtons = "prev,next today";
+        }
+    }
+
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
 
             var accessToken = common.getSessionToken();
 
@@ -25,22 +39,22 @@
                     customButtons: {
                         addScheduleButton: {
                             text: 'Add Schedule',
-                            click: function() {
+                            click: function () {
                                 window.location.href = "/Schedule/Create";
                             }
                         }
                     },
                     header: {
-                        left: 'prev,next today addScheduleButton',
+                        left: '@leftButtons',
                         center: 'title',
                         right: 'month,agendaWeek,agendaDay'
                     },
-                    windowResize: function(view) {
+                    windowResize: function (view) {
                         if ($(window).width() < 1024) {
                             $('#calendar').fullCalendar('changeView', 'agendaDay');
                         } else {
                             $('#calendar').fullCalendar('changeView', 'agendaWeek');
-                        }   
+                        }
                     },
                     defaultView: $(window).width() < 1024 ? 'agendaDay' : 'agendaWeek',
                     editable: true,
@@ -52,14 +66,14 @@
                     views: {
                         basic: {
                             // options apply to basicWeek and basicDay views
-                        
+
                         },
                         agenda: {
                             // options apply to agendaWeek and agendaDay views
                             slotDuration: '01:00:00',
                             slotLabelFormat: 'H(:mm)',
                             slotLabelInterval: '02:00:00'
-                            
+
                         },
                         week: {
                             // options apply to basicWeek and agendaWeek views
@@ -77,17 +91,17 @@
                             headers: { 'Authorization': 'Bearer ' + accessToken }
                         }
                     ],
-                    eventClick: function(calEvent, jsEvent, view) {
+                    eventClick: function (calEvent, jsEvent, view) {
                         window.location.href = '/Schedule/Details/' + calEvent.id;
                     },
-                    select: function(startDate, endDate, allDay, jsEvent, view) {
+                    select: function (startDate, endDate, allDay, jsEvent, view) {
                         //common.setStartEndDate(startDate, endDate);
                     },
                     monthNames: ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'],
                     monthNamesShort: ['Gen', 'Feb', 'Mar', 'Apr', 'Mag', 'Giu', 'Lug', 'Ago', 'Set', 'Ott', 'Nov', 'Dic'],
-                    dayNames: ['Domenica','Lunedi','Martedi','Mercoledi','Giovedi','Venerdi','Sabato'],
-                    dayNamesShort: ['Dom','Lun','Mar','Mer','Gio','Ven','Sab'],
-                    eventRender: function(event, element) {
+                    dayNames: ['Domenica', 'Lunedi', 'Martedi', 'Mercoledi', 'Giovedi', 'Venerdi', 'Sabato'],
+                    dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab'],
+                    eventRender: function (event, element) {
                         var content = element.find('div.fc-title').text();
                         element.find('div.fc-title').html(content);
                     }

@@ -1,8 +1,11 @@
-﻿<!DOCTYPE html>
+﻿@using Aruba.Eis
+@using Aruba.Eis.Models.Bl
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - Aruba EIS</title>
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @Styles.Render("~/Content/css")
@@ -23,22 +26,25 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                @if (Request.IsAuthenticated)
-                {
-                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Settings<span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li>@Html.ActionLink(@I18nResource.ACTIVITIES, "Index", "Activity", new { area = "" }, null)</li>
-                            <li>@Html.ActionLink(@I18nResource.TEAMS, "Index", "Team", new { area = "" }, null)</li>
-                            <li role="separator" class="divider"></li>
-                            <li class="dropdown-header">User Management</li>
-                            @*<li>@Html.ActionLink(@I18nResource.USERS, "Index", "User", new { area = "" }, null)</li>*@
-                            <li>@Html.ActionLink(@I18nResource.ROLES, "Index", "Role", new { area = "" }, null)</li>
-                            <li>@Html.ActionLink(@I18nResource.USERS, "Index", "User", new { area = "" }, null)</li>
-                        </ul>
-                    </li>
-                }
+                    @if (Request.IsAuthenticated)
+                    {
+                        <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
+                        if (User.IsInRole(Role.Manager) || User.IsInRole(Role.Admin))
+                        {
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Settings<span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li>@Html.ActionLink(@I18nResource.USERS, "Index", "User", new { area = "" }, null)</li>
+                                    <li>@Html.ActionLink(@I18nResource.ACTIVITIES, "Index", "Activity", new { area = "" }, null)</li>
+                                    @if (User.IsInRole(Role.Admin))
+                                    {
+                                        <li>@Html.ActionLink(@I18nResource.TEAMS, "Index", "Team", new { area = "" }, null)</li>
+                                        <li>@Html.ActionLink(@I18nResource.ROLES, "Index", "Role", new { area = "" }, null)</li>
+                                    }
+                                </ul>
+                            </li>
+                        }
+                    }
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

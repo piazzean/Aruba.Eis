@@ -116,5 +116,43 @@ namespace Aruba.Eis.Dao
                 throw EisException.RepositoryError;
             }
         }
+
+        /// <summary>
+        /// Find assignment by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<AssignmentEntity> FindAssignment(int? id)
+        {
+            try
+            {
+                var query = _ctx.DbAssignments.Where(x => x.Id == id);
+                return await query.FirstOrDefaultAsync();
+            }
+            catch (Exception e)
+            {
+                Log.Error(EisException.RepositoryError.Message, e);
+                throw EisException.RepositoryError;
+            }
+        }
+
+        /// <summary>
+        /// Create an assignment on the DB
+        /// </summary>
+        /// <param name="schedule"></param>
+        /// <returns></returns>
+        public async Task CreateAssignment(AssignmentEntity assignment)
+        {
+            try
+            {
+                _ctx.DbAssignments.Add(assignment);
+                await _ctx.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                Log.Error(EisException.RepositoryError.Message, e);
+                throw EisException.RepositoryError;
+            }
+        }
     }
 }

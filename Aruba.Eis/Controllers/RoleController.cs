@@ -16,7 +16,7 @@ using Aruba.Eis.Models.Bl;
 
 namespace Aruba.Eis.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = Role.Admin)]
     public class RoleController : Controller
     {
         /// <summary>

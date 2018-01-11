@@ -12,7 +12,7 @@ namespace Aruba.Eis.Models.Bl
 
         public string UserId { get; set; }
 
-        public UserEntity User { get; set; }
+        public User User { get; set; }
 
         public string RoleId { get; set; }
     }

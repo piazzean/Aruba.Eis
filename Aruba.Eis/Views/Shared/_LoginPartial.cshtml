@@ -10,14 +10,6 @@
                 @Html.ActionLink("User: " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: new { area = "" }, htmlAttributes: new { title = "Manage" })
             </li>
             <li><a href="javascript:sessionStorage.removeItem('accessToken');$('#logoutForm').submit();">Log off</a></li>
-            @if (User.IsInRole("AU Role"))
-            {
-                <li>AU ROLE</li>            
-            }
-            else
-            {
-                <li>Non AU ROLE</li>            
-            }
         </ul>
     }
 }

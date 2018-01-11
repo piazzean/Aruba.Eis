@@ -13,6 +13,7 @@ namespace Aruba.Eis.Models.Entities
         public UserEntity()
         {
             this.TeamResources = new HashSet<TeamResourceEntity>();
+            this.Assignments = new HashSet<AssignmentEntity>();
         }
 
         public string Name { get; set; }
@@ -24,6 +25,8 @@ namespace Aruba.Eis.Models.Entities
         public string City { get; set; }
 
         public virtual ICollection<TeamResourceEntity> TeamResources { get; set; }
+
+        public virtual ICollection<AssignmentEntity> Assignments { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<UserEntity> manager)
         {

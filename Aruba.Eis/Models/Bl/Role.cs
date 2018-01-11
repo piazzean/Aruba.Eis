@@ -8,6 +8,10 @@ namespace Aruba.Eis.Models.Bl
 {
     public class Role
     {
+        public const string Admin = "ADMIN";
+        public const string Manager = "MANAGER";
+
+
         [Required]
         public string Id { get; set; }
 

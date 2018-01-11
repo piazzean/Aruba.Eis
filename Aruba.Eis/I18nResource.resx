@@ -120,6 +120,15 @@
   <data name="ACTIVITIES" xml:space="preserve">
     <value>Activities</value>
   </data>
+  <data name="ASSIGN" xml:space="preserve">
+    <value>Assign</value>
+  </data>
+  <data name="ASSIGNMENT" xml:space="preserve">
+    <value>Assignment</value>
+  </data>
+  <data name="ASSIGNMENTS" xml:space="preserve">
+    <value>Assignments</value>
+  </data>
   <data name="CANCEL" xml:space="preserve">
     <value>Cancel</value>
   </data>
@@ -189,8 +198,14 @@
   <data name="NEXT" xml:space="preserve">
     <value>Next</value>
   </data>
+  <data name="NO" xml:space="preserve">
+    <value>No</value>
+  </data>
   <data name="PHONE_NUMBER" xml:space="preserve">
     <value>Phone Number</value>
+  </data>
+  <data name="PLANNED_RESOURCES" xml:space="preserve">
+    <value>Planned_Resources</value>
   </data>
   <data name="ROLE" xml:space="preserve">
     <value>Role</value>
@@ -218,5 +233,8 @@
   </data>
   <data name="USERS" xml:space="preserve">
     <value>Users</value>
+  </data>
+  <data name="YES" xml:space="preserve">
+    <value>Yes</value>
   </data>
 </root>

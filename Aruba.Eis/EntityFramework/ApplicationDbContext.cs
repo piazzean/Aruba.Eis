@@ -43,6 +43,8 @@ namespace Aruba.Eis.EntityFramework
 
         public virtual DbSet<ScheduleResourceEntity> DbScheduleResources { get; set; }
 
+        public virtual DbSet<AssignmentEntity> DbAssignments { get; set; }
+
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

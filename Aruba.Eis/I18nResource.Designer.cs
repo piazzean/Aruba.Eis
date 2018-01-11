@@ -70,6 +70,33 @@ namespace Aruba.Eis {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Assign.
+        /// </summary>
+        public static string ASSIGN {
+            get {
+                return ResourceManager.GetString("ASSIGN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Assignment.
+        /// </summary>
+        public static string ASSIGNMENT {
+            get {
+                return ResourceManager.GetString("ASSIGNMENT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Assignments.
+        /// </summary>
+        public static string ASSIGNMENTS {
+            get {
+                return ResourceManager.GetString("ASSIGNMENTS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         public static string CANCEL {
@@ -277,11 +304,29 @@ namespace Aruba.Eis {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        public static string NO {
+            get {
+                return ResourceManager.GetString("NO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Phone Number.
         /// </summary>
         public static string PHONE_NUMBER {
             get {
                 return ResourceManager.GetString("PHONE_NUMBER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Planned_Resources.
+        /// </summary>
+        public static string PLANNED_RESOURCES {
+            get {
+                return ResourceManager.GetString("PLANNED_RESOURCES", resourceCulture);
             }
         }
         
@@ -363,6 +408,15 @@ namespace Aruba.Eis {
         public static string USERS {
             get {
                 return ResourceManager.GetString("USERS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        public static string YES {
+            get {
+                return ResourceManager.GetString("YES", resourceCulture);
             }
         }
     }
